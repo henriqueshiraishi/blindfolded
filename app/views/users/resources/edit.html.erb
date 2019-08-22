@@ -1,0 +1,12 @@
+<%= form_for @user, url: users_resources_path do |f| %>
+  <h2 class="title">Editando o Perfil</h2>
+  <div class="field">
+    <%= f.label :username %><br>
+    <%= f.text_field :username, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <%= f.submit 'Salvar Alteração' %>
+<% end %>

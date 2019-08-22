@@ -1,0 +1,7 @@
+<% if resource.errors.any? %>
+  <% @message = String.new %>
+  <% resource.errors.full_messages.each do |message| %>
+    <% @message += "#{message}. " %>
+  <% end %>
+  <% flash[:alert] = @message %>
+<% end %>

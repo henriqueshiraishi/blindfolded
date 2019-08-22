@@ -1,24 +1,16 @@
-# README
+## Projeto UML Blindfolded
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Rails version: 5.1.7
+* Ruby version:  2.5.1
 
-Things you may want to cover:
+### Start do projeto Blindfolded
 
-* Ruby version
+* Na raiz do projeto, executa ```bundle install```
+* Monte a estrutura do banco de dados ```rails db:create db:migrate```
+* Cria as sementes do projeto ```rails db:seed```
+* E no console, executa ```rails server```
 
-* System dependencies
 
-* Configuration
+### Dependências do projeto Blindfolded
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Por enquanto existe nenhuma dependência.

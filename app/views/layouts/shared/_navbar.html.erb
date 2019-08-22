@@ -1,0 +1,7 @@
+<div class="navbar">
+  <p>
+    <%= link_to 'Início', root_path %>
+    <%= link_to 'Perfil', edit_users_resources_path(current_user) %>
+    <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
+  </p>
+</div>

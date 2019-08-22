@@ -1,0 +1,8 @@
+<div class="notification">
+  <% if !flash[:notice].blank? %>
+    <p>Sucesso: <%= flash[:notice] %></p>
+  <% end %>
+  <% if !flash[:alert].blank? %>
+    <p>Alerta: <%= flash[:alert] %></p>
+  <% end %>
+</div>
