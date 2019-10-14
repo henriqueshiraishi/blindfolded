@@ -1,12 +1,25 @@
+<h2 class="title">Editando o Perfil</h2>
+
 <%= form_for @user, url: users_resources_path do |f| %>
-  <h2 class="title">Editando o Perfil</h2>
-  <div class="field">
-    <%= f.label :username %><br>
-    <%= f.text_field :username, autofocus: true %>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <%= f.label :username %>
+        <%= f.text_field :username, class: 'form-control', autofocus: true %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+    </div>
   </div>
-  <%= f.submit 'Salvar Alteração' %>
+  <div class="row">
+    <div class="col-4">
+      <%= f.submit 'Salvar Alteração', class: 'btn btn-primary btn-block' %>
+    </div>
+  </div>
 <% end %>

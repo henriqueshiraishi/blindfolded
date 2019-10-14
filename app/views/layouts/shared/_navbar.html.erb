@@ -1,7 +1,10 @@
-<div class="navbar">
-  <p>
-    <%= link_to 'Início', root_path %>
-    <%= link_to 'Perfil', edit_users_resources_path(current_user) %>
-    <%= link_to 'Sair', destroy_user_session_path, method: :delete %>
-  </p>
-</div>
+<nav id="menu">
+  <ul>
+    <li><%= link_to 'Início', root_path %></li>
+    <li><%= link_to 'Diagrama de Classes', class_diagram_diagramas_index_path %></li>
+    <li><%= link_to 'Perfil', edit_users_resources_path(current_user) %></li>
+    <li><%= link_to 'Sair', destroy_user_session_path, method: :delete %></li>
+  </ul>
+</nav>
+<%= render 'layouts/shared/notification' %>
+<hr class="divide">

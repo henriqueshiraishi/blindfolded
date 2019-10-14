@@ -1,0 +1,63 @@
+<h2 class="title">Editando Diagrama de Classes</h2>
+<%= form_for @diagrama, url: class_diagram_diagramas_path do |f| %>
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+        <%= f.label :nome %>
+        <%= f.text_field :nome, value: val_of(@diagrama, :nome), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= f.submit 'Salvar Diagrama', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= class_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <fieldset class="border p-2">
+        <legend>Classes</legend>
+          <% if !@classes.empty? %>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Esteótipo</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @classes.each do |classe| %>
+                  <tr>
+                    <td width="40%"><%= classe.nome %></td>
+                    <td width="40%"><%= classe.estereotipo %></td>
+                    <td width="10%"><%= link_to 'Editar', '#!' %></td>
+                    <td width="10%"><%= link_to 'Remover', '#!' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+          <button type="button" onclick="location.href='<%= '#!' %>';" class="btn btn-primary btn-block">Nova Classe</button>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      <div class="form-group">
+        <%= f.submit 'Salvar Diagrama', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= class_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+      </div>
+    </div>
+  </div>
+<% end %>

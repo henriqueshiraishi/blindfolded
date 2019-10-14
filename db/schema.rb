@@ -10,7 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190821143645) do
+ActiveRecord::Schema.define(version: 20191012170539) do
+
+  create_table "class_diagram_associacao", force: :cascade do |t|
+    t.integer "class_diagram_classe_id"
+    t.integer "classe_destino"
+    t.integer "tipo_associacao", default: 0
+    t.string "multi_a"
+    t.string "multi_b"
+    t.string "estereotipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_diagram_classe_id"], name: "index_class_diagram_associacao_on_class_diagram_classe_id"
+  end
+
+  create_table "class_diagram_atributo", force: :cascade do |t|
+    t.integer "class_diagram_classe_id"
+    t.string "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_diagram_classe_id"], name: "index_class_diagram_atributo_on_class_diagram_classe_id"
+  end
+
+  create_table "class_diagram_classe", force: :cascade do |t|
+    t.integer "class_diagram_diagrama_id"
+    t.string "nome"
+    t.string "estereotipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_diagram_diagrama_id"], name: "index_class_diagram_classe_on_class_diagram_diagrama_id"
+  end
+
+  create_table "class_diagram_diagrama", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_class_diagram_diagrama_on_user_id"
+  end
+
+  create_table "class_diagram_metodo", force: :cascade do |t|
+    t.integer "class_diagram_classe_id"
+    t.string "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_diagram_classe_id"], name: "index_class_diagram_metodo_on_class_diagram_classe_id"
+  end
 
   create_table "user", force: :cascade do |t|
     t.string "username", default: "", null: false
