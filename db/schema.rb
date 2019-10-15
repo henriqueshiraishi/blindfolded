@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20191012170539) do
 
-  create_table "class_diagram_associacao", force: :cascade do |t|
-    t.integer "class_diagram_classe_id"
+  create_table "associacao", force: :cascade do |t|
+    t.integer "classe_id"
     t.integer "classe_destino"
     t.integer "tipo_associacao", default: 0
     t.string "multi_a"
@@ -21,40 +21,40 @@ ActiveRecord::Schema.define(version: 20191012170539) do
     t.string "estereotipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["class_diagram_classe_id"], name: "index_class_diagram_associacao_on_class_diagram_classe_id"
+    t.index ["classe_id"], name: "index_associacao_on_classe_id"
   end
 
-  create_table "class_diagram_atributo", force: :cascade do |t|
-    t.integer "class_diagram_classe_id"
+  create_table "atributo", force: :cascade do |t|
+    t.integer "classe_id"
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["class_diagram_classe_id"], name: "index_class_diagram_atributo_on_class_diagram_classe_id"
+    t.index ["classe_id"], name: "index_atributo_on_classe_id"
   end
 
-  create_table "class_diagram_classe", force: :cascade do |t|
-    t.integer "class_diagram_diagrama_id"
+  create_table "classe", force: :cascade do |t|
+    t.integer "diagrama_id"
     t.string "nome"
     t.string "estereotipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["class_diagram_diagrama_id"], name: "index_class_diagram_classe_on_class_diagram_diagrama_id"
+    t.index ["diagrama_id"], name: "index_classe_on_diagrama_id"
   end
 
-  create_table "class_diagram_diagrama", force: :cascade do |t|
+  create_table "diagrama", force: :cascade do |t|
     t.integer "user_id"
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_class_diagram_diagrama_on_user_id"
+    t.index ["user_id"], name: "index_diagrama_on_user_id"
   end
 
-  create_table "class_diagram_metodo", force: :cascade do |t|
-    t.integer "class_diagram_classe_id"
+  create_table "metodo", force: :cascade do |t|
+    t.integer "classe_id"
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["class_diagram_classe_id"], name: "index_class_diagram_metodo_on_class_diagram_classe_id"
+    t.index ["classe_id"], name: "index_metodo_on_classe_id"
   end
 
   create_table "user", force: :cascade do |t|

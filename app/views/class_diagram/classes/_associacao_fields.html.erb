@@ -1,0 +1,18 @@
+<tr class="nested-fields">
+  <td width="27.5%">
+    <%= f.select :classe_destino, Classe.where(diagrama_id: params[:diagrama_id]).pluck(:nome, :id), {include_blank: false}, {class: 'form-control ref-2'} %>
+  </td>
+  <td width="22%">
+    <%= f.select :tipo_associacao, Associacao.associacoes, {include_blank: false}, {class: 'form-control'} %>
+  </td>
+  <td width="10%">
+    <%= f.text_field :multi_a, class: 'form-control', placeholder: 'A' %>
+  </td>
+  <td width="10%">
+    <%= f.text_field :multi_b, class: 'form-control', placeholder: 'B' %>
+  </td>
+  <td>
+    <%= f.text_field :estereotipo, class: 'form-control', placeholder: 'Estereótipo' %>
+  </td>
+  <td width="5%"><%= link_to_remove_association f, class: 'btn btn-secondary btn-block' do %>Excluir<% end %></td>
+</tr>

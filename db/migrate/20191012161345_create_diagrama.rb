@@ -1,6 +1,6 @@
-class CreateClassDiagramDiagrama < ActiveRecord::Migration[5.1]
+class CreateDiagrama < ActiveRecord::Migration[5.1]
   def change
-    create_table :class_diagram_diagrama do |t|
+    create_table :diagrama do |t|
       t.references :user, foreign_key: true
       t.string :nome
 

@@ -12,4 +12,13 @@
 //
 //= require rails-ujs
 //= require turbolinks
+//= require cocoon
 //= require_tree .
+
+$(document).ready(function(){
+  $('.btn-cocoon').on('click', function(){
+    var focus_to_field = this.dataset.focus;
+    $(this.dataset.thead).removeClass('d-none');
+    setTimeout(function(){ $(focus_to_field).focus(); }, 100);
+  });
+});

@@ -2,7 +2,7 @@ class ClassDiagram::DiagramasController < ApplicationController
   before_action :set_diagrama, only: [:show, :edit, :update, :destroy]
 
   def index
-    @diagramas = ClassDiagram::Diagrama.where(user_id: current_user.id).order(id: :desc)
+    @diagramas = Diagrama.where(user_id: current_user.id).order(id: :desc)
   end
 
   def show
@@ -10,17 +10,17 @@ class ClassDiagram::DiagramasController < ApplicationController
   end
 
   def new
-    @diagrama = ClassDiagram::Diagrama.new
+    @diagrama = Diagrama.new
   end
 
   def edit
-    @classes = ClassDiagram::Classe.where(class_diagram_diagrama_id: @diagrama.id)
+    @classes = Classe.where(diagrama_id: @diagrama.id)
   end
 
   def create
     respond_to do |format|
       begin
-        @diagrama = ClassDiagram::Diagrama.new(diagrama_params)
+        @diagrama = Diagrama.new(diagrama_params)
         if @diagrama.save
           flash[:notice] = 'Diagrama criado com sucesso.'
           format.html { redirect_to edit_class_diagram_diagramas_path(@diagrama) }
@@ -67,11 +67,11 @@ class ClassDiagram::DiagramasController < ApplicationController
 
   private
     def set_diagrama
-      @diagrama = ClassDiagram::Diagrama.find(params[:id])
+      @diagrama = Diagrama.find(params[:id])
     end
 
     def diagrama_params
       @params_for_reload = {}
-      params.require(:class_diagram_diagrama).permit(:nome)
+      params.require(:diagrama).permit(:nome)
     end
 end

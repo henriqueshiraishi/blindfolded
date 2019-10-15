@@ -1,6 +1,6 @@
 <h2 class="title">Nova Classe para "<%= @diagrama.nome %>"</h2>
 <%= form_for @classe, url: url do |f| %>
-  <%= f.text_field :class_diagram_diagrama_id, value: params[:class_diagram_diagrama_id], class: 'd-none' %>
+  <%= f.text_field :diagrama_id, value: params[:diagrama_id], class: 'd-none' %>
   <div class="row">
     <div class="col-3">
       <div class="form-group">
@@ -21,8 +21,80 @@
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:class_diagram_diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Outros Componentes -->
+
+  <div class="row">
+    <div class="form-group col-8">
+      <fieldset class="border p-2">
+        <legend>Lista de Atributos</legend>
+        <table>
+          <thead class="<%= 'd-none' if f.object.atributo.empty? %>" id="thead-atributo">
+            <tr>
+              <th>Descrição</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="atributo">
+            <%= f.fields_for :atributo do |builder| %>
+              <%= render 'atributo_fields', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_association f, :atributo, data: { thead: '#thead-atributo', focus: '.ref-0', association_insertion_node: '.atributo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Novo Atributo<% end %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-8">
+      <fieldset class="border p-2">
+        <legend>Lista de Métodos</legend>
+        <table>
+          <thead class="<%= 'd-none' if f.object.metodo.empty? %>" id="thead-metodo">
+            <tr>
+              <th>Descrição</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="metodo">
+            <%= f.fields_for :metodo do |builder| %>
+              <%= render 'metodo_fields', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_association f, :metodo, data: { thead: '#thead-metodo', focus: '.ref-1', association_insertion_node: '.metodo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Novo Método<% end %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-8">
+      <fieldset class="border p-2">
+        <legend>Lista de Associações</legend>
+        <table>
+          <thead class="<%= 'd-none' if f.object.associacao.empty? %>" id="thead-associacao">
+            <tr>
+              <th>Destino</th>
+              <th>Associação</th>
+              <th>Mult. A</th>
+              <th>Mult. B</th>
+              <th>Esteótipo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="associacao">
+            <%= f.fields_for :associacao do |builder| %>
+              <%= render 'associacao_fields', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_association f, :associacao, data: { thead: '#thead-associacao', focus: '.ref-1', association_insertion_node: '.associacao', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Nova Associação<% end %>
+      </fieldset>
     </div>
   </div>
 
@@ -36,7 +108,7 @@
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:class_diagram_diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
       </div>
     </div>
   </div>

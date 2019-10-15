@@ -1,6 +1,6 @@
-class ClassDiagram::Diagrama < ApplicationRecord
+class Diagrama < ApplicationRecord
   belongs_to :user
-  has_many :class_diagram_classe, class_name: 'ClassDiagram::Classe'
+  has_many :classe
   validates :nome, presence: true
   before_validation :set_user
   before_destroy :remove_dependencias
@@ -9,6 +9,6 @@ class ClassDiagram::Diagrama < ApplicationRecord
     self.user_id = Current.user.id
   end
   def remove_dependencias
-    ClassDiagram::Classe.where(class_diagram_diagrama_id: id).delete_all
+    Classe.where(diagrama_id: id).delete_all
   end
 end
