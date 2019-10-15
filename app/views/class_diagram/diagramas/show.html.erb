@@ -1,0 +1,241 @@
+<link rel="stylesheet" href="/jsUML2_v004/Installation-Public/build/css/UDStyle.css">
+<script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDCore.js"></script>
+<script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDModules.js"></script>
+<script>
+  $(document).ready(function(){
+    $('nav#menu').addClass('d-none');
+  });
+</script>
+
+<h2 class="title">"<%= @diagrama.nome %>"</h2>
+<div class="row">
+  <div class="col-2">
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta PNG</button>
+  </div>
+  <div class="col-2">
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta PDF</button>
+  </div>
+  <div class="col-2">
+    <button type="button" onclick="location.href='<%= request.referer %>';" class="btn btn-primary btn-block">Voltar</button>
+  </div>
+</div>
+
+<!-- Inicio do Canvas -->
+<br>
+<div id="fundo" style="margin-bottom: 25px;"></div>
+
+<script>
+// Seta variaveis com o tamanho padrão
+var width = 1270;
+var height = 350;
+
+// Cria a div do "fundo" com o tamanho padrão
+var div = document.getElementById('fundo');
+div.setAttribute('class', 'ud_diagram_div');
+div.style.width = width + 'px';
+div.style.height = height + 'px';
+
+//Cria o canvas com o tamanho padrão
+var canvas = document.createElement('canvas');
+canvas.setAttribute('class', 'ud_diagram_canvas');
+canvas.width = width;
+canvas.height = height;
+var mainContext = canvas.getContext('2d');
+div.appendChild(canvas);
+
+//Joga o canvas como um elemento e seta tamanho
+canvas = document.createElement('canvas');
+canvas.setAttribute('class', 'ud_diagram_canvas');
+canvas.width = this.width;
+canvas.height = this.height;
+canvas.onmousedown = function(){ return false; }
+var motionContext = canvas.getContext('2d');
+
+// Seta a variavel d como o diagrama total e inicia com os valores padrão
+var d = new UMLClassDiagram({id:'fundo', width: 1300, height: 350 });
+d.initialize(0, div, mainContext, motionContext, width, height);
+
+// Define a posição da primeira classe
+var inicioX = 30; // Horizontal CONSTANTES
+var inicioY = 40; // Vertical CONSTANTES
+var novoX = 30;
+var novoY = 40;
+var distanciaLateral= 125; // Define o espaçamento entre as classes
+var distanciaVertical= 100;
+var anterior = new UMLClass(); //Define o obj anterior a ser referencia
+var tamanhoLinha = 0;
+var limiteLinha = width;
+var maiorAltura = 0;
+
+var contadorLinha = 1;
+var listaClasses = [];
+
+// Cria o array de objetos do banco ISSO QUE DEVERA SER PASSADO DO BANCO
+var conjuntoBanco = [];
+<% @diagrama.classe.each do |classe| %>
+  var classe = new Object();
+  classe.id = "<%= classe.id %>";
+  classe.nome = "<%= classe.nome.html_safe %>";
+  classe.esteriotipo = "<%= classe.estereotipo.html_safe %>";
+
+  classe.atributos = [];
+  <% classe.atributo.each do |atributo| %>
+    classe.atributos.push('<%= atributo.descricao %>');
+  <% end %>
+
+  classe.metodos = [];
+  <% classe.metodo.each do |metodo| %>
+    classe.metodos.push('<%= metodo.descricao %>');
+  <% end %>
+
+  classe.associacoes = [];
+  <% classe.associacao.each do |associacao| %>
+    var associacao = new Object();
+    associacao.origem = "<%= associacao.classe_id %>";
+    associacao.destino = "<%= associacao.classe_destino %>";
+    associacao.tipoAss = "<%= associacao.tipo_associacao %>";
+    associacao.multA = "<%= associacao.multi_a %>";
+    associacao.multB = "<%= associacao.multi_b %>";
+    associacao.esteriotipo = "<%= associacao.estereotipo %>";
+    classe.associacoes.push(associacao);
+  <% end %>
+
+  conjuntoBanco.push(classe);
+<% end %>
+
+
+// i percorre o array de classes
+for(var i=0; i < conjuntoBanco.length; i++){
+  // Quando for criar a primeira classe
+  if(i!=0){
+    novoX = anterior.getX() + anterior.getWidth() + distanciaLateral; //Calcula a posição horizontal
+    novoY = anterior.getY(); //Calcula a posição vertical sem quebra
+    if(i%2 != 0){
+      novoY += 25;
+    }
+  }
+
+  var classe = new UMLClass({ x: novoX, y: novoY});
+  classe.setName(conjuntoBanco[i].nome);
+  classe.setId(conjuntoBanco[i].id);
+  classe.addStereotype(conjuntoBanco[i].esteriotipo);
+  tamanhoLinha = novoX + classe.getWidth();
+
+  if(tamanhoLinha > limiteLinha){
+    novoY = maiorAltura + distanciaVertical*contadorLinha; //Calcula a posição vertical com quebra
+    novoX = inicioX;
+    tamanhoLinha = 0;
+    maiorAltura = 0;
+    classe.position(novoX, novoY);
+    contadorLinha++;
+  }
+
+  var alturaClasse = classe.getHeight()
+  if (alturaClasse > maiorAltura) {
+    maiorAltura = alturaClasse;
+  }
+
+  // Cria os atributos da classe
+  for(var j = 0; j < conjuntoBanco[i].atributos.length; j++){
+    classe.addAttribute(conjuntoBanco[i].atributos[j]);
+  }
+
+  // Cria os metodos da classe
+  for(var j = 0; j < conjuntoBanco[i].metodos.length; j++){
+    classe.addOperation(conjuntoBanco[i].metodos[j]);
+  }
+
+  listaClasses.push({key: conjuntoBanco[i].id, value: classe})
+  d.addElement(classe);
+  d.interaction(true);
+  anterior = classe;
+}
+
+for(var i=0; i < conjuntoBanco.length; i++){
+  // j percorre o array de associacoes
+  for(var j = 0; j < conjuntoBanco[i].associacoes.length; j++){
+    // z percorre as associacoes
+    for(var z = 0; z < listaClasses.length; z++){
+      if (listaClasses[z].key == conjuntoBanco[i].associacoes[j].destino){
+        //Criar a ligação conforme o tipo
+        switch (conjuntoBanco[i].associacoes[j].tipoAss) {
+          //Agregação
+          case 'UMLAggregation':
+            var ligacao = UMLAggregation({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            ligacao.setMultiplicityA(conjuntoBanco[i].associacoes[j].multA);
+            ligacao.setMultiplicityB(conjuntoBanco[i].associacoes[j].multB);
+            ligacao.setStereotype(conjuntoBanco[i].associacoes[j].esteriotipo);
+            d.addElement(ligacao);
+            break;
+
+          //Associação
+          case 'UMLAssociation':
+            var ligacao = UMLAssociation({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            ligacao.setMultiplicityA(conjuntoBanco[i].associacoes[j].multA);
+            ligacao.setMultiplicityB(conjuntoBanco[i].associacoes[j].multB);
+            ligacao.setStereotype(conjuntoBanco[i].associacoes[j].esteriotipo);
+            d.addElement(ligacao);
+            break;
+
+          //Classe abstrata TEM QUE VER PQ TEMMULTIPLO ESTERIOTIPO NA DOCUMENTAÇÃO
+          case 'UMLNAssociation':
+            var ligacao = UMLNAssociation({});
+            ligacao.setElements({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            d.addElement(ligacao);
+            break;
+
+          //Composição
+          case 'UMLComposition':
+            var ligacao = UMLComposition({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            ligacao.setMultiplicityA(conjuntoBanco[i].associacoes[j].multA);
+            ligacao.setMultiplicityB(conjuntoBanco[i].associacoes[j].multB);
+            ligacao.setStereotype(conjuntoBanco[i].associacoes[j].esteriotipo);
+            d.addElement(ligacao);
+            break;
+
+          //Dependencia
+          case 'UMLDependency':
+            var ligacao = UMLDependency({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            d.addElement(ligacao);
+            break;
+
+          //Generalização
+          case 'UMLGeneralization':
+            var ligacao = UMLGeneralization({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            d.addElement(ligacao);
+            break;
+
+          //Realização
+          case 'UMLRealization':
+            var ligacao = UMLRealization({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            d.addElement(ligacao);
+            break;
+
+          //Uso
+          case 'UMLUsage':
+            var ligacao = UMLUsage({a: encontrar_classe(conjuntoBanco[i].id), b: listaClasses[z].value});
+            d.addElement(ligacao);
+            break;
+        }
+      }
+    }
+  }
+}
+
+//Atualiza dinamicamente a altura do canvas
+d.setUpdateHeightCanvas(true);
+
+//Função para renomear o diagrama
+d.setName("<%= @diagrama.nome %>");
+
+//Função para desenhar o diagrama
+d.draw();
+
+function encontrar_classe(id){
+  for(var i = 0; i < listaClasses.length; i++){
+    if (listaClasses[i].key == id) {
+      return listaClasses[i].value;
+    }
+  }
+}
+</script>

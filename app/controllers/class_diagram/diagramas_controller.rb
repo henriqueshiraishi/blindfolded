@@ -6,7 +6,7 @@ class ClassDiagram::DiagramasController < ApplicationController
   end
 
   def show
-    # Método que irá gerar o diagrama no Canvas
+    flash[:notice] = "Diagrama gerado com sucesso."
   end
 
   def new

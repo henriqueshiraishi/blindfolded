@@ -12,6 +12,11 @@
         <%= f.submit 'Salvar Diagrama', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
       </div>
     </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= link_to 'Gerar Diagrama', class_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
     <div class="col-1">
       <div class="form-group">
         <button type="button" onclick="location.href='<%= class_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
@@ -19,7 +24,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-6">
+    <div class="col-8">
       <fieldset class="border p-2">
         <legend>Classes</legend>
         <% if @classes.empty? %><p class="alert-item">Nenhuma classe cadastrada.</p><% end %>
@@ -53,6 +58,11 @@
     <div class="col-5">
       <div class="form-group">
         <%= f.submit 'Salvar Diagrama', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= link_to 'Gerar Diagrama', class_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
       </div>
     </div>
     <div class="col-1">
