@@ -22,6 +22,7 @@
     <div class="col-6">
       <fieldset class="border p-2">
         <legend>Classes</legend>
+        <% if @classes.empty? %><p class="alert-item">Nenhuma classe cadastrada.</p><% end %>
           <% if !@classes.empty? %>
             <table>
               <thead>
@@ -37,19 +38,19 @@
                   <tr>
                     <td width="40%"><%= classe.nome %></td>
                     <td width="40%"><%= classe.estereotipo %></td>
-                    <td width="10%"><%= link_to 'Editar', '#!' %></td>
-                    <td width="10%"><%= link_to 'Remover', '#!' %></td>
+                    <td width="10%"><%= link_to 'Editar', edit_class_diagram_classes_path(classe, class_diagram_diagrama_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
+                    <td width="10%"><%= link_to 'Excluir', class_diagram_classes_path(classe), method: :delete, class: 'btn btn-secondary btn-block' %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
-          <button type="button" onclick="location.href='<%= '#!' %>';" class="btn btn-primary btn-block">Nova Classe</button>
+          <button type="button" onclick="location.href='<%= new_class_diagram_classes_path(class_diagram_diagrama_id: params[:id]) %>';" class="btn btn-primary btn-block">Nova Classe</button>
       </fieldset>
     </div>
   </div>
   <div class="row">
-    <div class="col-2">
+    <div class="col-5">
       <div class="form-group">
         <%= f.submit 'Salvar Diagrama', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
       </div>

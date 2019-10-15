@@ -1,8 +1,8 @@
 class ClassDiagram::Classe < ApplicationRecord
-  belongs_to :class_diagram_diagrama
-  has_many :class_diagram_atributo
-  has_many :class_diagram_metodo
-  has_many :class_diagram_associacao
+  belongs_to :class_diagram_diagrama, class_name: 'ClassDiagram::Diagrama'
+  has_many :class_diagram_atributo, class_name: 'ClassDiagram::Atributo'
+  has_many :class_diagram_metodo, class_name: 'ClassDiagram::Metodo'
+  has_many :class_diagram_associacao, class_name: 'ClassDiagram::Associacao'
   validates :nome, presence: true
   after_destroy :remove_dependencias
   private

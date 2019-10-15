@@ -1,5 +1,5 @@
 class ClassDiagram::Associacao < ApplicationRecord
-  belongs_to :class_diagram_classe
+  belongs_to :class_diagram_classe, class_name: 'ClassDiagram::Classe'
   validates :classe_destino, presence: true
   validates :tipo_associacao, presence: true
   validates :multi_a, presence: true, if:-> { UMLAssociation? }

@@ -1,0 +1,43 @@
+<h2 class="title">Nova Classe para "<%= @diagrama.nome %>"</h2>
+<%= form_for @classe, url: url do |f| %>
+  <%= f.text_field :class_diagram_diagrama_id, value: params[:class_diagram_diagrama_id], class: 'd-none' %>
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+        <%= f.label :nome %>
+        <%= f.text_field :nome, value: val_of(@classe, :nome), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= f.label :estereotipo %>
+        <%= f.text_field :estereotipo, value: val_of(@classe, :estereotipo), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= f.submit 'Efetivar Classe', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:class_diagram_diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Outros Componentes -->
+
+  <div class="row">
+    <div class="col-7">
+      <div class="form-group">
+        <%= f.submit 'Efetivar Classe', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:class_diagram_diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+      </div>
+    </div>
+  </div>
+<% end %>

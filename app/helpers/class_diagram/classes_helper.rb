@@ -1,0 +1,2 @@
+module ClassDiagram::ClassesHelper
+end
