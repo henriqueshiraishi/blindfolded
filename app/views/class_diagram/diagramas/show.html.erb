@@ -1,11 +1,7 @@
 <link rel="stylesheet" href="/jsUML2_v004/Installation-Public/build/css/UDStyle.css">
 <script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDCore.js"></script>
 <script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDModules.js"></script>
-<script>
-  $(document).ready(function(){
-    $('nav#menu').addClass('d-none');
-  });
-</script>
+<script> $(document).ready(function(){ $('nav#menu').addClass('d-none'); }); </script>
 
 <h2 class="title">"<%= @diagrama.nome %>"</h2>
 <div class="row">
@@ -14,6 +10,9 @@
   </div>
   <div class="col-2">
     <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta PDF</button>
+  </div>
+  <div class="col-2">
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta XML</button>
   </div>
   <div class="col-2">
     <button type="button" onclick="location.href='<%= request.referer %>';" class="btn btn-primary btn-block">Voltar</button>
@@ -26,7 +25,7 @@
 
 <script>
 // Seta variaveis com o tamanho padrão
-var width = 1270;
+var width = 1300;
 var height = 350;
 
 // Cria a div do "fundo" com o tamanho padrão
@@ -52,7 +51,7 @@ canvas.onmousedown = function(){ return false; }
 var motionContext = canvas.getContext('2d');
 
 // Seta a variavel d como o diagrama total e inicia com os valores padrão
-var d = new UMLClassDiagram({id:'fundo', width: 1300, height: 350 });
+var d = new UMLClassDiagram({id:'fundo', width: width, height: height });
 d.initialize(0, div, mainContext, motionContext, width, height);
 
 // Define a posição da primeira classe
@@ -61,7 +60,7 @@ var inicioY = 40; // Vertical CONSTANTES
 var novoX = 30;
 var novoY = 40;
 var distanciaLateral= 125; // Define o espaçamento entre as classes
-var distanciaVertical= 100;
+var distanciaVertical= 150;
 var anterior = new UMLClass(); //Define o obj anterior a ser referencia
 var tamanhoLinha = 0;
 var limiteLinha = width;
@@ -96,7 +95,7 @@ var conjuntoBanco = [];
     associacao.tipoAss = "<%= associacao.tipo_associacao %>";
     associacao.multA = "<%= associacao.multi_a %>";
     associacao.multB = "<%= associacao.multi_b %>";
-    associacao.esteriotipo = "<%= associacao.estereotipo %>";
+    associacao.esteriotipo = "<<<%= associacao.estereotipo %>>>";
     classe.associacoes.push(associacao);
   <% end %>
 
@@ -122,7 +121,7 @@ for(var i=0; i < conjuntoBanco.length; i++){
   tamanhoLinha = novoX + classe.getWidth();
 
   if(tamanhoLinha > limiteLinha){
-    novoY = maiorAltura + distanciaVertical*contadorLinha; //Calcula a posição vertical com quebra
+    novoY = maiorAltura + distanciaVertical * contadorLinha; //Calcula a posição vertical com quebra
     novoX = inicioX;
     tamanhoLinha = 0;
     maiorAltura = 0;

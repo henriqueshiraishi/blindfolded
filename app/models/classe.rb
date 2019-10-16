@@ -10,7 +10,7 @@ class Classe < ApplicationRecord
   validates_associated :metodo
   validates_associated :associacao
   validates :nome, presence: true
-  after_destroy :remove_dependencias
+  before_destroy :remove_dependencias
   private
     def remove_dependencias
       Atributo.where(classe_id: id).delete_all

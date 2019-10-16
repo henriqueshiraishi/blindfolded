@@ -9,6 +9,11 @@ class Diagrama < ApplicationRecord
     self.user_id = Current.user.id
   end
   def remove_dependencias
-    Classe.where(diagrama_id: id).delete_all
+    Classe.where(diagrama_id: id).each do |classe|
+      Atributo.where(classe_id: classe.id).delete_all
+      Metodo.where(classe_id: classe.id).delete_all
+      Associacao.where(classe_id: classe.id).delete_all
+      classe.delete
+    end
   end
 end
