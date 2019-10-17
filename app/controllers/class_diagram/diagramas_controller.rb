@@ -3,18 +3,22 @@ class ClassDiagram::DiagramasController < ApplicationController
 
   def index
     @diagramas = Diagrama.where(user_id: current_user.id).order(id: :desc)
+    @title = 'Lista de Diagramas de Classes'
   end
 
   def show
     flash[:notice] = "Diagrama gerado com sucesso."
+    @title = 'Diagramada de Classes Gerado'
   end
 
   def new
     @diagrama = Diagrama.new
+    @title = 'Novo Diagrama de Classes'
   end
 
   def edit
     @classes = Classe.where(diagrama_id: @diagrama.id)
+    @title = 'Editando Diagrama de Classes'
   end
 
   def create

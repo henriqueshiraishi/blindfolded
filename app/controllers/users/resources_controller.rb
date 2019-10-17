@@ -3,6 +3,7 @@ class Users::ResourcesController < ApplicationController
   before_action :verify_user, only: [:edit, :update]
 
   def edit
+    @title = 'Meu Perfil'
   end
 
   def update

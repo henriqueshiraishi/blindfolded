@@ -16,12 +16,12 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= f.submit 'Efetivar Classe', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Classe</button>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
       </div>
     </div>
   </div>
@@ -45,7 +45,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :atributo, data: { thead: '#thead-atributo', focus: '.ref-0', association_insertion_node: '.atributo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Novo Atributo<% end %>
+        <%= link_to_add_association f, :atributo, data: { thead: '#thead-atributo', focus: '.ref-0', association_insertion_node: '.atributo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'a' do %>Novo Atributo<% end %>
       </fieldset>
     </div>
   </div>
@@ -67,7 +67,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :metodo, data: { thead: '#thead-metodo', focus: '.ref-1', association_insertion_node: '.metodo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Novo Método<% end %>
+        <%= link_to_add_association f, :metodo, data: { thead: '#thead-metodo', focus: '.ref-1', association_insertion_node: '.metodo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'm' do %>Novo Método<% end %>
       </fieldset>
     </div>
   </div>
@@ -93,7 +93,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :associacao, data: { thead: '#thead-associacao', focus: '.ref-1', association_insertion_node: '.associacao', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block' do %>Nova Associação<% end %>
+        <%= link_to_add_association f, :associacao, data: { thead: '#thead-associacao', focus: '.ref-3', association_insertion_node: '.associacao', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
       </fieldset>
     </div>
   </div>
@@ -103,12 +103,12 @@
   <div class="row">
     <div class="col-7">
       <div class="form-group">
-        <%= f.submit 'Efetivar Classe', class:"btn btn-primary btn-block", style: 'margin-top: 35px;' %>
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Classe</button>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:diagrama_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
       </div>
     </div>
   </div>

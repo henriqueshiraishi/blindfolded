@@ -1,6 +1,6 @@
 <tr class="nested-fields">
   <td width="27.5%">
-    <%= f.select :classe_destino, Classe.where(diagrama_id: params[:diagrama_id]).pluck(:nome, :id), {include_blank: false}, {class: 'form-control ref-2'} %>
+    <%= f.select :classe_destino, Classe.where(diagrama_id: params[:diagrama_id]).pluck(:nome, :id), {include_blank: false}, {class: 'form-control ref-3'} %>
   </td>
   <td width="22%">
     <%= f.select :tipo_associacao, Associacao.associacoes, {include_blank: false}, {class: 'form-control'} %>

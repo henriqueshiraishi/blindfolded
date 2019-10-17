@@ -7,12 +7,14 @@ class ClassDiagram::ClassesController < ApplicationController
     params_for_atributo
     params_for_metodo
     params_for_associacao
+    @title = 'Nova Classe'
   end
 
   def edit
     params_for_atributo
     params_for_metodo
     params_for_associacao
+    @title = 'Editando Classe'
   end
 
   def create

@@ -6,22 +6,22 @@
 <h2 class="title">"<%= @diagrama.nome %>"</h2>
 <div class="row">
   <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta PNG</button>
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="g">Exporta PNG</button>
   </div>
   <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta PDF</button>
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="p">Exporta PDF</button>
   </div>
   <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block">Exporta XML</button>
+    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="x">Exporta XML</button>
   </div>
   <div class="col-2">
-    <button type="button" onclick="location.href='<%= request.referer %>';" class="btn btn-primary btn-block">Voltar</button>
+    <button type="button" onclick="location.href='<%= request.referer %>';" class="btn btn-primary btn-block" accesskey="v">Voltar</button>
   </div>
 </div>
 
 <!-- Inicio do Canvas -->
 <br>
-<div id="fundo" style="margin-bottom: 25px;"></div>
+<div id="fundo" style="margin-bottom: 25px;" alt="Diagrama de Classes Gerado"></div>
 
 <script>
 // Seta variaveis com o tamanho padrão
