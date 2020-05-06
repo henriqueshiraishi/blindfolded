@@ -1,6 +1,5 @@
 class Users::ResourcesController < ApplicationController
   before_action :set_user, only: [:edit, :update]
-  before_action :verify_user, only: [:edit, :update]
 
   def edit
     @title = 'Meu Perfil'
@@ -10,20 +9,13 @@ class Users::ResourcesController < ApplicationController
     respond_to do |format|
       flash[:notice] = "Atualizado com sucesso." if @user.update(user_params)
       flash[:alert] = @user.errors.full_messages(&:inspect).join('. ') + '.' if @user.errors.any?
-      format.html { redirect_to edit_users_resources_path(@user) }
+      format.html { redirect_to edit_users_resources_path }
     end
   end
 
   private
   def set_user
-    @user = User.find(params[:id])
-  end
-
-  def verify_user
-    if @user != current_user
-      flash[:alert] = "Você não possuí autorização para continuar."
-      redirect_to root_path
-    end
+    @user = current_user
   end
 
   def user_params

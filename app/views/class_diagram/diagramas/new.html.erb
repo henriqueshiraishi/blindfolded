@@ -1,7 +1,7 @@
 <h2 class="title">Criando Diagrama de Classes</h2>
 <%= form_for @diagrama, url: class_diagram_diagramas_index_path do |f| %>
   <div class="row">
-    <div class="col-3">
+    <div class="col-4">
       <div class="form-group">
         <%= f.label :nome %>
         <%= f.text_field :nome, value: val_of(@diagrama, :nome), class: 'form-control', autofocus: true %>

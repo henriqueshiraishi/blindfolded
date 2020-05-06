@@ -12,49 +12,50 @@
 
 ActiveRecord::Schema.define(version: 20191012170539) do
 
-  create_table "associacao", force: :cascade do |t|
-    t.integer "classe_id"
-    t.integer "classe_destino"
+  create_table "classo", force: :cascade do |t|
+    t.integer "cldiag_id"
+    t.integer "clclas_origem_id"
+    t.integer "clclas_destino_id"
+    t.string "multi_origem"
+    t.string "multi_destino"
     t.integer "tipo_associacao", default: 0
-    t.string "multi_a"
-    t.string "multi_b"
     t.string "estereotipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["classe_id"], name: "index_associacao_on_classe_id"
+    t.index ["cldiag_id"], name: "index_classo_on_cldiag_id"
   end
 
-  create_table "atributo", force: :cascade do |t|
-    t.integer "classe_id"
+  create_table "clatri", force: :cascade do |t|
+    t.integer "clclas_id"
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["classe_id"], name: "index_atributo_on_classe_id"
+    t.index ["clclas_id"], name: "index_clatri_on_clclas_id"
   end
 
-  create_table "classe", force: :cascade do |t|
-    t.integer "diagrama_id"
+  create_table "clclas", force: :cascade do |t|
+    t.integer "cldiag_id"
     t.string "nome"
     t.string "estereotipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["diagrama_id"], name: "index_classe_on_diagrama_id"
+    t.index ["cldiag_id"], name: "index_clclas_on_cldiag_id"
   end
 
-  create_table "diagrama", force: :cascade do |t|
+  create_table "cldiag", force: :cascade do |t|
     t.integer "user_id"
     t.string "nome"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_diagrama_on_user_id"
+    t.index ["user_id"], name: "index_cldiag_on_user_id"
   end
 
-  create_table "metodo", force: :cascade do |t|
-    t.integer "classe_id"
+  create_table "clmeto", force: :cascade do |t|
+    t.integer "clclas_id"
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["classe_id"], name: "index_metodo_on_classe_id"
+    t.index ["clclas_id"], name: "index_clmeto_on_clclas_id"
   end
 
   create_table "user", force: :cascade do |t|

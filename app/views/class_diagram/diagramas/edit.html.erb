@@ -1,7 +1,7 @@
 <h2 class="title">Editando Diagrama de Classes</h2>
 <%= form_for @diagrama, url: class_diagram_diagramas_path do |f| %>
   <div class="row">
-    <div class="col-3">
+    <div class="col-4">
       <div class="form-group">
         <%= f.label :nome %>
         <%= f.text_field :nome, value: val_of(@diagrama, :nome), class: 'form-control', autofocus: true %>
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-8">
+    <div class="col-9">
       <fieldset class="border p-2">
         <legend>Classes</legend>
         <% if @classes.empty? %><p class="alert-item">Nenhuma classe cadastrada.</p><% end %>
@@ -41,21 +41,47 @@
               <tbody>
                 <% @classes.each do |classe| %>
                   <tr>
-                    <td width="40%"><%= classe.nome %></td>
-                    <td width="40%"><%= classe.estereotipo %></td>
-                    <td width="10%"><%= link_to 'Editar', edit_class_diagram_classes_path(classe, diagrama_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
-                    <td width="10%"><%= link_to 'Excluir', class_diagram_classes_path(classe), method: :delete, class: 'btn btn-secondary btn-block' %></td>
+                    <td width="42.5%"><%= classe.nome %></td>
+                    <td width="42.5%"><%= classe.estereotipo %></td>
+                    <td width="7.5%"><%= link_to 'Editar', edit_class_diagram_classes_path(classe, cldiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Excluir', class_diagram_classes_path(classe), method: :delete, class: 'btn btn-secondary btn-block' %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
-          <button type="button" onclick="location.href='<%= new_class_diagram_classes_path(diagrama_id: params[:id]) %>';" class="btn btn-primary btn-block" accesskey="c">Nova Classe</button>
+          <button type="button" onclick="location.href='<%= new_class_diagram_classes_path(cldiag_id: params[:id]) %>';" class="btn btn-primary btn-block" accesskey="c">Nova Classe</button>
       </fieldset>
     </div>
   </div>
   <div class="row">
-    <div class="col-5">
+    <div class="col-9">
+      <fieldset class="border p-2">
+        <legend>Lista de Associações</legend>
+          <table>
+          <thead class="<%= 'd-none' if f.object.classo.empty? %>" id="thead-classo">
+            <tr>
+              <th>Origem</th>
+              <th>Destino</th>
+              <th>Associação</th>
+              <th>Origem</th>
+              <th>Destino</th>
+              <th>Esteótipo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="classo">
+            <%= f.fields_for :classo do |builder| %>
+              <%= render 'classo_fields', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_association f, :classo, data: { thead: '#thead-classo', focus: '.ref-3', association_insertion_node: '.classo', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
       </div>

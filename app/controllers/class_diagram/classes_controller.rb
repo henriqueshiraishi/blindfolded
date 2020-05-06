@@ -3,27 +3,25 @@ class ClassDiagram::ClassesController < ApplicationController
   before_action :set_diagrama, only: [:new, :edit]
 
   def new
-    @classe = Classe.new
-    params_for_atributo
-    params_for_metodo
-    params_for_associacao
+    @classe = CLCLAS.new
+    params_for_clatri
+    params_for_clmeto
     @title = 'Nova Classe'
   end
 
   def edit
-    params_for_atributo
-    params_for_metodo
-    params_for_associacao
+    params_for_clatri
+    params_for_clmeto
     @title = 'Editando Classe'
   end
 
   def create
     respond_to do |format|
       begin
-        @classe = Classe.new(classe_params)
+        @classe = CLCLAS.new(classe_params)
         if @classe.save
           flash[:notice] = 'Classe criada com sucesso.'
-          format.html { redirect_to edit_class_diagram_classes_path(@classe, diagrama_id: params[:classe][:diagrama_id]) }
+          format.html { redirect_to edit_class_diagram_classes_path(@classe, cldiag_id: params[:clclas][:cldiag_id]) }
         end
         if @classe.errors.any?
           flash[:alert] = catch(@classe)
@@ -49,7 +47,7 @@ class ClassDiagram::ClassesController < ApplicationController
         flash[:error] = e.message
         @params_for_reload = classe_params
       end
-      format.html { redirect_to edit_class_diagram_classes_path(@classe, params: @params_for_reload, diagrama_id: params[:classe][:diagrama_id]) }
+      format.html { redirect_to edit_class_diagram_classes_path(@classe, params: @params_for_reload, cldiag_id: params[:clclas][:cldiag_id]) }
     end
   end
 
@@ -61,58 +59,40 @@ class ClassDiagram::ClassesController < ApplicationController
       rescue StandardError => e
         flash[:error] = e.message
       end
-      format.html { redirect_to edit_class_diagram_diagramas_path(@classe.diagrama_id) }
+      format.html { redirect_to edit_class_diagram_diagramas_path(@classe.cldiag_id) }
     end
   end
 
   private
     def set_classe
-      @classe = Classe.find(params[:id])
+      @classe = CLCLAS.find(params[:id])
     end
 
     def set_diagrama
-      @diagrama = Diagrama.find(params[:diagrama_id])
+      @diagrama = CLDIAG.find(params[:cldiag_id])
     end
 
     def classe_params
       @params_for_reload = {}
-      params.require(:classe).permit(:diagrama_id, :nome, :estereotipo, atributo_attributes: [:id, :descricao, :_destroy], metodo_attributes: [:id, :descricao, :_destroy], associacao_attributes: [:id, :classe_id, :classe_destino, :tipo_associacao, :multi_a, :multi_b, :estereotipo, :_destroy])
+      params.require(:clclas).permit(:cldiag_id, :nome, :estereotipo, clatri_attributes: [:id, :descricao, :_destroy], clmeto_attributes: [:id, :descricao, :_destroy])
     end
 
-    def params_for_atributo
-      if @items = params[:atributo_attributes]
+    def params_for_clatri
+      if @items = params[:clatri_attributes]
         @items.each do |i|
-          @item = Atributo.new(descricao: @items[i]['descricao'])
-          @classe.atributo.new(@item.attributes) if @items[i]['id'].blank?
+          @item = CLATRI.new(descricao: @items[i]['descricao'])
+          @classe.clatri.new(@item.attributes) if @items[i]['id'].blank?
         end
         return true
       end
       return false
     end
 
-    def params_for_metodo
-      if @items = params[:metodo_attributes]
+    def params_for_clmeto
+      if @items = params[:clmeto_attributes]
         @items.each do |i|
-          @item = Metodo.new(descricao: @items[i]['descricao'])
-          @classe.metodo.new(@item.attributes) if @items[i]['id'].blank?
-        end
-        return true
-      end
-      return false
-    end
-
-    def params_for_associacao
-      if @items = params[:associacao_attributes]
-        @items.each do |i|
-          @item = Associacao.new(
-            classe_id: @items[i]['classe_id'],
-            classe_destino: @items[i]['classe_destino'],
-            tipo_associacao: @items[i]['tipo_associacao'],
-            multi_a: @items[i]['multi_a'],
-            multi_b: @items[i]['multi_b'],
-            estereotipo: @items[i]['estereotipo']
-          )
-          @classe.associacao.new(@item.attributes) if @items[i]['id'].blank?
+          @item = CLMETO.new(descricao: @items[i]['descricao'])
+          @classe.clmeto.new(@item.attributes) if @items[i]['id'].blank?
         end
         return true
       end

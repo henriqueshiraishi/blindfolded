@@ -6,4 +6,17 @@
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.clear
   inflect.singular(/$/i, '')
+  inflect.acronym 'CLDIAG'
+  inflect.acronym 'CLASSO'
+  inflect.acronym 'CLCLAS'
+  inflect.acronym 'CLATRI'
+  inflect.acronym 'CLMETO'
+
+  inflect.acronym 'CSDIAG'
+  inflect.acronym 'CSELEM'
+  inflect.acronym 'CSASSO'
+
+  inflect.acronym 'MQDIAG'
+  inflect.acronym 'MQELEM'
+  inflect.acronym 'MQTRAN'
 end

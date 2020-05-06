@@ -1,0 +1,21 @@
+<tr class="nested-fields">
+  <td width="27.5%">
+    <%= f.select :clclas_origem_id, CLCLAS.where(cldiag_id: params[:id]).pluck(:nome, :id), {include_blank: false}, {class: 'form-control ref-3'} %>
+  </td>
+  <td width="27.5%">
+    <%= f.select :clclas_destino_id, CLCLAS.where(cldiag_id: params[:id]).pluck(:nome, :id), {include_blank: false}, {class: 'form-control ref-3'} %>
+  </td>
+  <td width="22%">
+    <%= f.select :tipo_associacao, CLASSO.associacoes, {include_blank: false}, {class: 'form-control'} %>
+  </td>
+  <td width="10%">
+    <%= f.text_field :multi_origem, class: 'form-control', placeholder: 'Origem' %>
+  </td>
+  <td width="10%">
+    <%= f.text_field :multi_destino, class: 'form-control', placeholder: 'Destino' %>
+  </td>
+  <td>
+    <%= f.text_field :estereotipo, class: 'form-control', placeholder: 'Estereótipo' %>
+  </td>
+  <td width="5%"><%= link_to_remove_association f, class: 'btn btn-secondary btn-block' do %>Excluir<% end %></td>
+</tr>

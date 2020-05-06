@@ -1,9 +1,10 @@
-class Associacao < ApplicationRecord
-  belongs_to :classe
-  validates :classe_destino, presence: true
+class CLASSO < ApplicationRecord
+  belongs_to :cldiag
+  validates :clclas_origem_id,  presence: true
+  validates :clclas_destino_id, presence: true
+  validates :multi_origem,  presence: true, if:-> { UMLAssociation? }
+  validates :multi_destino, presence: true, if:-> { UMLAssociation? }
   validates :tipo_associacao, presence: true
-  validates :multi_a, presence: true, if:-> { UMLAssociation? }
-  validates :multi_b, presence: true, if:-> { UMLAssociation? }
   enum tipo_associacao: [:UMLAggregation, :UMLAssociation, :UMLComposition, :UMLDependency, :UMLGeneralization, :UMLRealization]
   def self.associacoes
     [

@@ -2,29 +2,31 @@ class ClassDiagram::DiagramasController < ApplicationController
   before_action :set_diagrama, only: [:show, :edit, :update, :destroy]
 
   def index
-    @diagramas = Diagrama.where(user_id: current_user.id).order(id: :desc)
+    @diagramas = CLDIAG.where(user_id: current_user.id).order(id: :desc)
     @title = 'Lista de Diagramas de Classes'
   end
 
   def show
     flash[:notice] = "Diagrama gerado com sucesso."
-    @title = 'Diagramada de Classes Gerado'
+    @title = 'Diagrama de Classes Gerado'
   end
 
   def new
-    @diagrama = Diagrama.new
+    @diagrama = CLDIAG.new
+    params_for_clmeto
     @title = 'Novo Diagrama de Classes'
   end
 
   def edit
-    @classes = Classe.where(diagrama_id: @diagrama.id)
+    @classes = CLCLAS.where(cldiag_id: @diagrama.id)
+    params_for_clmeto
     @title = 'Editando Diagrama de Classes'
   end
 
   def create
     respond_to do |format|
       begin
-        @diagrama = Diagrama.new(diagrama_params)
+        @diagrama = CLDIAG.new(diagrama_params)
         if @diagrama.save
           flash[:notice] = 'Diagrama criado com sucesso.'
           format.html { redirect_to edit_class_diagram_diagramas_path(@diagrama) }
@@ -71,11 +73,22 @@ class ClassDiagram::DiagramasController < ApplicationController
 
   private
     def set_diagrama
-      @diagrama = Diagrama.find(params[:id])
+      @diagrama = CLDIAG.find(params[:id])
     end
 
     def diagrama_params
       @params_for_reload = {}
-      params.require(:diagrama).permit(:nome)
+      params.require(:cldiag).permit(:nome, classo_attributes: [:id, :clclas_origem_id, :clclas_destino_id, :multi_origem, :multi_destino, :tipo_associacao, :estereotipo, :_destroy])
+    end
+
+    def params_for_clmeto
+      if @items = params[:classo_attributes]
+        @items.each do |i|
+          @item = CLASSO.new(clclas_origem_id: @items[i]['clclas_origem_id'], clclas_destino_id: @items[i]['clclas_destino_id'], multi_origem: @items[i]['multi_origem'], multi_destino: @items[i]['multi_destino'], tipo_associacao: @items[i]['tipo_associacao'], estereotipo: @items[i]['estereotipo'])
+          @diagrama.classo.new(@item.attributes) if @items[i]['id'].blank?
+        end
+        return true
+      end
+      return false
     end
 end

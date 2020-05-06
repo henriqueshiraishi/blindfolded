@@ -6,6 +6,6 @@ Rails.application.routes.draw do
     resources :classes, except: [:index, :show]
   end
   namespace :users do
-    resources :resources, only: [:edit, :update]
+    resource :resources, only: [:edit, :update]
   end
 end

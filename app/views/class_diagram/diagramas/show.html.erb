@@ -71,30 +71,31 @@ var listaClasses = [];
 
 // Cria o array de objetos do banco ISSO QUE DEVERA SER PASSADO DO BANCO
 var conjuntoBanco = [];
-<% @diagrama.classe.each do |classe| %>
+<% @diagrama.clclas.each do |classe| %>
   var classe = new Object();
   classe.id = "<%= classe.id %>";
   classe.nome = "<%= classe.nome.html_safe %>";
   classe.esteriotipo = "<%= classe.estereotipo.html_safe %>";
 
   classe.atributos = [];
-  <% classe.atributo.each do |atributo| %>
+  <% classe.clatri.each do |atributo| %>
     classe.atributos.push('<%= atributo.descricao %>');
   <% end %>
 
   classe.metodos = [];
-  <% classe.metodo.each do |metodo| %>
+  <% classe.clmeto.each do |metodo| %>
     classe.metodos.push('<%= metodo.descricao %>');
   <% end %>
 
   classe.associacoes = [];
-  <% classe.associacao.each do |associacao| %>
+  <% @associacoes = @diagrama.classo.where(clclas_origem_id: classe.id) %>
+  <% @associacoes.each do |associacao| %>
     var associacao = new Object();
-    associacao.origem = "<%= associacao.classe_id %>";
-    associacao.destino = "<%= associacao.classe_destino %>";
+    associacao.origem = "<%= associacao.clclas_origem_id %>";
+    associacao.destino = "<%= associacao.clclas_destino_id %>";
     associacao.tipoAss = "<%= associacao.tipo_associacao %>";
-    associacao.multA = "<%= associacao.multi_a %>";
-    associacao.multB = "<%= associacao.multi_b %>";
+    associacao.multA = "<%= associacao.multi_origem %>";
+    associacao.multB = "<%= associacao.multi_destino %>";
     associacao.esteriotipo = "<<<%= associacao.estereotipo %>>>";
     classe.associacoes.push(associacao);
   <% end %>
