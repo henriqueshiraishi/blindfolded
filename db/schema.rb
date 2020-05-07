@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191012170539) do
+ActiveRecord::Schema.define(version: 20200507165708) do
 
   create_table "classo", force: :cascade do |t|
     t.integer "cldiag_id"
@@ -56,6 +56,34 @@ ActiveRecord::Schema.define(version: 20191012170539) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clclas_id"], name: "index_clmeto_on_clclas_id"
+  end
+
+  create_table "csasso", force: :cascade do |t|
+    t.integer "csdiag_id"
+    t.integer "cselem_origem_id"
+    t.integer "cselem_destino_id"
+    t.integer "tipo_associacao"
+    t.string "estereotipo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["csdiag_id"], name: "index_csasso_on_csdiag_id"
+  end
+
+  create_table "csdiag", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_csdiag_on_user_id"
+  end
+
+  create_table "cselem", force: :cascade do |t|
+    t.integer "csdiag_id"
+    t.string "descricao"
+    t.integer "tipo_elemento", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["csdiag_id"], name: "index_cselem_on_csdiag_id"
   end
 
   create_table "user", force: :cascade do |t|

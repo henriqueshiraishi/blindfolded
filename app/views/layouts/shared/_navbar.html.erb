@@ -2,8 +2,9 @@
   <ul>
     <li><%= link_to 'Início', root_path, accesskey: '1' %></li>
     <li><%= link_to 'Diagrama de Classes', class_diagram_diagramas_index_path, accesskey: '2' %></li>
-    <li><%= link_to 'Perfil', edit_users_resources_path, accesskey: '3' %></li>
-    <li><%= link_to 'Sair', destroy_user_session_path, method: :delete, accesskey: '4' %></li>
+    <li><%= link_to 'Diagrama de Caso de Uso', use_case_diagram_diagramas_index_path, accesskey: '3' %></li>
+    <li><%= link_to 'Perfil', edit_users_resources_path, accesskey: '4' %></li>
+    <li><%= link_to 'Sair', destroy_user_session_path, method: :delete, accesskey: '5' %></li>
   </ul>
 </nav>
 <%= render 'layouts/shared/notification' %>

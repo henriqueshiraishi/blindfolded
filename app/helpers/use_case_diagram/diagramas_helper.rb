@@ -1,0 +1,2 @@
+module UseCaseDiagram::DiagramasHelper
+end

@@ -1,0 +1,23 @@
+<h2 class="title">Criando Diagrama de Caso de Uso</h2>
+<%= form_for @diagrama, url: use_case_diagram_diagramas_index_path do |f| %>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <%= f.label :nome %>
+        <%= f.text_field :nome, value: val_of(@diagrama, :nome), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Criar Diagrama</button>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= use_case_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+

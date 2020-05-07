@@ -1,0 +1,29 @@
+<h2 class="title">Meus Diagramas de Caso de Uso</h2>
+<div class="row">
+  <div class="col-6">
+    <button type="button" onclick="location.href='<%= new_use_case_diagram_diagramas_path %>';" class="btn btn-primary btn-block" accesskey="n">Novo Diagrama</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <fieldset class="border p-2">
+      <legend>Diagramas</legend>
+      <% if @diagramas.empty? %><p class="alert-item">Nenhum diagrama cadastrado.</p><% end %>
+      <% if !@diagramas.empty? %>
+        <% @diagramas.each do |diagrama| %>
+          <table>
+            <tbody>
+              <tr>
+                <td width="70%"><%= diagrama.nome %></td>
+                <td width="15%"><%= link_to 'Editar', edit_use_case_diagram_diagramas_path(diagrama), class: 'btn btn-secondary btn-block' %></td>
+                <td width="15%"><%= link_to 'Gerar', use_case_diagram_diagramas_path(diagrama), class: 'btn btn-secondary btn-block' %></td>
+                <td width="15%"><%= link_to 'Excluir', use_case_diagram_diagramas_path(diagrama), method: :delete, class: 'btn btn-secondary btn-block' %></td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+    </fieldset>
+  </div>
+</div>
