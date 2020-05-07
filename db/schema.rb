@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200507165708) do
+ActiveRecord::Schema.define(version: 20200507184022) do
 
   create_table "classo", force: :cascade do |t|
     t.integer "cldiag_id"
@@ -84,6 +84,35 @@ ActiveRecord::Schema.define(version: 20200507165708) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["csdiag_id"], name: "index_cselem_on_csdiag_id"
+  end
+
+  create_table "mqdiag", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "nome"
+    t.integer "mqelem_inicial_id"
+    t.integer "mqelem_final_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_mqdiag_on_user_id"
+  end
+
+  create_table "mqelem", force: :cascade do |t|
+    t.integer "mqdiag_id"
+    t.string "descricao"
+    t.integer "tipo_elemento", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mqdiag_id"], name: "index_mqelem_on_mqdiag_id"
+  end
+
+  create_table "mqtran", force: :cascade do |t|
+    t.integer "mqdiag_id"
+    t.integer "mqelem_origem_id"
+    t.integer "mqelem_destino_id"
+    t.string "descricao"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mqdiag_id"], name: "index_mqtran_on_mqdiag_id"
   end
 
   create_table "user", force: :cascade do |t|

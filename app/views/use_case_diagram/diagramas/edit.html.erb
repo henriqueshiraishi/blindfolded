@@ -42,7 +42,7 @@
                 <% @elementos.each do |elemento| %>
                   <tr>
                     <td width="42.5%"><%= elemento.descricao %></td>
-                    <td width="42.5%"><%= CSELEM.associacoes.to_h.select{|key, value| value == elemento.tipo_elemento }.keys[0] %></td>
+                    <td width="42.5%"><%= CSELEM.tipo_elementos.to_h.select{|key, value| value == elemento.tipo_elemento }.keys[0] %></td>
                     <td width="7.5%"><%= link_to 'Editar', edit_use_case_diagram_elementos_path(elemento, csdiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
                     <td width="7.5%"><%= link_to 'Excluir', use_case_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-secondary btn-block' %></td>
                   </tr>
