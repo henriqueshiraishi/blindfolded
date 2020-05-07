@@ -1,0 +1,97 @@
+<h2 class="title">Editando Máquina de Estado</h2>
+<%= form_for @diagrama, url: state_machine_diagram_diagramas_path do |f| %>
+  <div class="row">
+    <div class="col-4">
+      <div class="form-group">
+        <%= f.label :nome %>
+        <%= f.text_field :nome, value: val_of(@diagrama, :nome), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <fieldset class="border p-2">
+        <legend>Elementos</legend>
+        <% if @elementos.empty? %><p class="alert-item">Nenhum elemento cadastrado.</p><% end %>
+          <% if !@elementos.empty? %>
+            <table>
+              <thead>
+                <tr>
+                  <th>Descrição</th>
+                  <th>Tipo Elemento</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @elementos.each do |elemento| %>
+                  <tr>
+                    <td width="42.5%"><%= elemento.descricao %></td>
+                    <td width="42.5%"><%= MQELEM.tipo_elementos.to_h.select{|key, value| value == elemento.tipo_elemento }.keys[0] %></td>
+                    <td width="7.5%"><%= link_to 'Editar', edit_state_machine_diagram_elementos_path(elemento, mqdiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Excluir', state_machine_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-secondary btn-block' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+          <button type="button" onclick="location.href='<%= new_state_machine_diagram_elementos_path(mqdiag_id: params[:id]) %>';" class="btn btn-primary btn-block" accesskey="c">Novo Elemento</button>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-9">
+      <fieldset class="border p-2">
+        <legend>Lista de Transições</legend>
+          <table>
+          <thead class="<%= 'd-none' if f.object.mqtran.empty? %>" id="thead-mqtran">
+            <tr>
+              <th>Elem. Origem</th>
+              <th>Elem. Destino</th>
+              <th>Descrição</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="mqtran">
+            <%= f.fields_for :mqtran do |builder| %>
+              <%= render 'mqtran_fields', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_association f, :mqtran, data: { thead: '#thead-mqtran', focus: '.ref-3', association_insertion_node: '.mqtran', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
+      </fieldset>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+      </div>
+    </div>
+  </div>
+<% end %>

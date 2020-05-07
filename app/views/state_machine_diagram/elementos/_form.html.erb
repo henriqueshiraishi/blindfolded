@@ -1,0 +1,40 @@
+<h2 class="title">Novo Elemento para "<%= @diagrama.nome %>"</h2>
+<%= form_for @elemento, url: url do |f| %>
+  <%= f.text_field :mqdiag_id, value: params[:mqdiag_id], class: 'd-none' %>
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+        <%= f.label :descricao %>
+        <%= f.text_field :descricao, value: val_of(@elemento, :descricao), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <%= f.label :tipo_elemento %>
+        <%= f.select :tipo_elemento, MQELEM.tipo_elementos, {include_blank: false}, {class: 'form-control'} %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Elem.</button>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= edit_state_machine_diagram_diagramas_path(params[:mqdiag_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7">
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Elemento</button>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-group">
+        <button type="button" onclick="location.href='<%= edit_state_machine_diagram_diagramas_path(params[:mqdiag_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
+      </div>
+    </div>
+  </div>
+<% end %>

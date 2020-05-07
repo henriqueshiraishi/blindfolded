@@ -1,0 +1,2 @@
+module StateMachineDiagram::ElementosHelper
+end

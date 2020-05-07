@@ -1,0 +1,12 @@
+<tr class="nested-fields">
+  <td width="27.5%">
+    <%= f.select :mqelem_origem_id, MQELEM.where(mqdiag_id: params[:id]).pluck(:descricao, :id), {include_blank: false}, {class: 'form-control ref-3'} %>
+  </td>
+  <td width="27.5%">
+    <%= f.select :mqelem_destino_id, MQELEM.where(mqdiag_id: params[:id]).pluck(:descricao, :id), {include_blank: false}, {class: 'form-control'} %>
+  </td>
+  <td>
+    <%= f.text_field :descricao, class: 'form-control', placeholder: 'Descrição' %>
+  </td>
+  <td width="5%"><%= link_to_remove_association f, class: 'btn btn-secondary btn-block' do %>Excluir<% end %></td>
+</tr>
