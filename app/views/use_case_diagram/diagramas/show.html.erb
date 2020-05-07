@@ -1,3 +1,4 @@
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <link rel="stylesheet" href="/jsUML2_v004/Installation-Public/build/css/UDStyle.css">
 <script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDCore.js"></script>
 <script type="text/javascript" src="/jsUML2_v004/Installation-Public/build/UDModules.js"></script>
@@ -6,13 +7,10 @@
 <h2 class="title">"<%= @diagrama.nome %>"</h2>
 <div class="row">
   <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="g">Exporta PNG</button>
+    <a href="#!" id="btnPNG" class="btn btn-primary btn-block" accesskey="g">Exporta PNG</a>
   </div>
   <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="p">Exporta PDF</button>
-  </div>
-  <div class="col-2">
-    <button type="button" onclick="location.href='#!';" class="btn btn-primary btn-block" accesskey="x">Exporta XML</button>
+    <a href="#!" id="btnPDF" class="btn btn-primary btn-block" accesskey="p">Exporta PDF</a>
   </div>
   <div class="col-2">
     <button type="button" onclick="location.href='<%= request.referer %>';" class="btn btn-primary btn-block" accesskey="v">Voltar</button>
@@ -22,3 +20,21 @@
 <!-- Inicio do Canvas -->
 <br>
 <div id="fundo" style="margin-bottom: 25px;" alt="Diagrama de Classes Gerado"></div>
+
+<!-- script para exportações -->
+<script>
+  $('#btnPNG').on('click', function(){
+    var image = $('.ud_diagram_canvas')[0].toDataURL("image/png");
+    if($('#btnPNG').attr('href') != image){
+      $('#btnPNG').attr('href', image);
+      $('#btnPNG').attr('download', 'useCaseDiagram.png');
+      $('#btnPNG').click();
+    }
+  });
+  $('#btnPDF').on('click', function(){
+    var image = $('.ud_diagram_canvas')[0].toDataURL("image/png");
+    var doc = new jsPDF({orientation: 'landscape'});
+    doc.addImage(image, 'PNG', 0, 0);
+    doc.save('useCaseDiagram.pdf');
+  });
+</script>
