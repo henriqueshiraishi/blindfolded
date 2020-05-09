@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200507184022) do
+ActiveRecord::Schema.define(version: 20200509225532) do
 
   create_table "classo", force: :cascade do |t|
     t.integer "cldiag_id"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20200507184022) do
     t.integer "tipo_elemento", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "estereotipo"
     t.index ["csdiag_id"], name: "index_cselem_on_csdiag_id"
   end
 

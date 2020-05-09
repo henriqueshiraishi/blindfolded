@@ -70,6 +70,6 @@ class UseCaseDiagram::ElementosController < ApplicationController
 
     def elemento_params
       @params_for_reload = {}
-      params.require(:cselem).permit(:csdiag_id, :descricao, :tipo_elemento)
+      params.require(:cselem).permit(:csdiag_id, :descricao, :estereotipo, :tipo_elemento)
     end
 end

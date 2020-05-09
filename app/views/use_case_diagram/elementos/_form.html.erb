@@ -10,6 +10,12 @@
     </div>
     <div class="col-2">
       <div class="form-group">
+        <%= f.label :estereotipo %>
+        <%= f.text_field :estereotipo, value: val_of(@elemento, :estereotipo), class: 'form-control', autofocus: true %>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="form-group">
         <%= f.label :tipo_elemento %>
         <%= f.select :tipo_elemento, CSELEM.tipo_elementos, {include_blank: false}, {class: 'form-control'} %>
       </div>
@@ -26,7 +32,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-7">
+    <div class="col-9">
       <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Elemento</button>
       </div>

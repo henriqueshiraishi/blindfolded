@@ -8,7 +8,7 @@ class CSELEM < ApplicationRecord
   end
   before_destroy :remove_dependencias
   private
-  def remove_dependencias
+    def remove_dependencias
     CSASSO.where(cselem_origem_id:  id).delete_all
     CSASSO.where(cselem_destino_id: id).delete_all
   end

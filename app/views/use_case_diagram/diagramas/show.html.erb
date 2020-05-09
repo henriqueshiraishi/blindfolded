@@ -21,6 +21,222 @@
 <br>
 <div id="fundo" style="margin-bottom: 25px;" alt="Diagrama de Classes Gerado"></div>
 
+<script>
+  // Seta variaveis com o tamanho padrão
+  var width = 1300;
+  var height = 350;
+
+  // Cria a div do "fundo" com o tamanho padrão
+  var div = document.getElementById('fundo');
+  div.setAttribute('class', 'ud_diagram_div');
+  div.style.width = width + 'px';
+  div.style.height = height + 'px';
+
+  //Cria o canvas com o tamanho padrão
+  var canvas = document.createElement('canvas');
+  canvas.setAttribute('class', 'ud_diagram_canvas');
+  canvas.width = width;
+  canvas.height = height;
+  var mainContext = canvas.getContext('2d');
+  div.appendChild(canvas);
+
+  //Joga o canvas como um elemento e seta tamanho
+  canvas = document.createElement('canvas');
+  canvas.setAttribute('class', 'ud_diagram_canvas');
+  canvas.width = this.width;
+  canvas.height = this.height;
+  canvas.onmousedown = function(){ return false; }
+  var motionContext = canvas.getContext('2d');
+
+  // Seta a variavel d como o diagrama total e inicia com os valores padrão
+  var d = new UMLUseCaseDiagram({id:'fundo', width: width, height: height });
+  d.initialize(0, div, mainContext, motionContext, width, height);
+
+  //ISSO QUE DEVERÁ SER PASSADO DO BANCO-------------------------------------------------------------
+    var conjuntoBanco = [];
+    <% @diagrama.cselem.each do |elem| %>
+      var elemento = new Object();
+      elemento.id = "<%= elem.id %>";
+      elemento.nome = "<%= elem.descricao %>";
+      elemento.estereotipo = "<%= elem.estereotipo %>";
+      elemento.tipoElemento = <%= elem.tipo_elemento  == 'UseCase' ? 0 : 1 %>;
+      elemento.associacoes = [];
+      <% @associacoes = @diagrama.csasso.where(cselem_origem_id: elem.id) %>
+      <% @associacoes.each do |associacao| %>
+        var associacao = new Object();
+        associacao.origem = "<%= associacao.cselem_origem_id %>";
+        associacao.destino = "<%= associacao.cselem_destino_id %>";
+        associacao.tipoAss = "<%= associacao.tipo_associacao %>";
+        associacao.estereotipo = "<%= associacao.estereotipo %>";
+        elemento.associacoes.push(associacao);
+      <% end %>
+      conjuntoBanco.push(elemento);
+
+    <% end %>
+  //ISSO QUE DEVERÁ SER PASSADO DO BANCO-------------------------------------------------------------
+
+  // Variaveis para Casos
+  var inicioX = 150; // Horizontal CONSTANTES
+  var inicioY = 40; // Vertical CONSTANTES
+  var novoX = 130; //Horizontal atual
+  var novoY = 40; //Vertical Atual
+  var atorX = 15; // Distancia da parede esquerda
+  var atorY = 40; // Vertical
+  var distanciaLateral= 75; // Define o espaçamento entre os casos dentro da linha
+  var distanciaVertical= 20; // Define espaço entre os casos depois da quebra da linha
+  var casoAnterior = new UMLUseCase(); //Define o obj anterior a ser referencia
+  var atorAnterior = new UMLActor(); //Define o obj anterior a ser referencia
+  var distanciaAtor = 50;
+  var tamanhoLinha = 0; // Tamanho dos casos somado com a distanciaLateral
+  var limiteLinha = width; // Até onde pode ir o tamanhoLinha
+  var maiorAltura = 0; // Mede o caso com maior texto para distanciaVertical
+  var contadorLinha = 1; // Conta as linhas usadas para zerar o tamanhoLinha
+  var listaCasos = [];
+  var listaAtores = [];
+  var contaElementos = 0;
+
+  for(contaElementos = 0; contaElementos < conjuntoBanco.length; contaElementos++){}
+
+  for(var i=0; i < conjuntoBanco.length; i++){// i percorre o array de Casos e Atores
+
+    if(conjuntoBanco[i].tipoElemento == 0){
+          // O primeiro caso passa direto, todos os outros entram no IF
+          if(listaCasos.length != 0){
+            novoX = casoAnterior.getX() + casoAnterior.getWidth() + distanciaLateral; //Calcula a posição horizontal
+            novoY = casoAnterior.getY(); //Calcula a posição vertical sem quebra
+            if(i%2 != 0){ //Ele vai aumentando para não ficar alinhado e sumir associacao
+              novoY += 25;
+            }
+          }
+
+          // Pega o caso do array, joga em um do canvas e define o lugar
+          var caso = new UMLUseCase({ x: novoX, y: novoY});
+          caso.setName(conjuntoBanco[i].nome);
+          caso.setId(conjuntoBanco[i].id);
+          caso.addStereotype(conjuntoBanco[i].estereotipo);
+          tamanhoLinha = novoX + caso.getWidth(); // Tamanho Atual da linha
+
+          //Verifica se o tamanho da linha ultrapassa o limite para fazer a quebra
+          if(tamanhoLinha > limiteLinha){
+            novoY = maiorAltura + distanciaVertical * contadorLinha; //Calcula a posição vertical com quebra
+            novoX = inicioX;
+            tamanhoLinha = 0;
+            maiorAltura = 0;
+            caso.position(novoX, novoY); // Se o caso passar do limite, ele quebra a linha com novo X e Y
+            contadorLinha++;
+          }
+
+          //Verifica se o caso atual é maior do que o maior já registrado
+          var alturaCaso = caso.getHeight()
+          if (alturaCaso > maiorAltura) {
+            maiorAltura = alturaCaso;
+          }
+
+          // Gerencia os elementos para localização unitaria
+          listaCasos.push({key: conjuntoBanco[i].id, value: caso})
+          d.addElement(caso);
+          d.interaction(true);
+          casoAnterior = caso;
+    }
+
+    if(conjuntoBanco[i].tipoElemento == 1) {
+          if(listaAtores.length !=0){
+            atorY = atorAnterior.getY() + atorAnterior.getHeight() + distanciaAtor;
+          }
+          // Pega o caso do array, joga em um do canvas e define o lugar
+          var ator = new UMLActor({ x: atorX, y: atorY});
+          ator.setName(conjuntoBanco[i].nome);
+          ator.setId(conjuntoBanco[i].id);
+          ator.addStereotype(conjuntoBanco[i].estereotipo);
+
+          // Gerencia os elementos para localização unitaria
+          listaAtores.push({key: conjuntoBanco[i].id, value: ator})
+          d.addElement(ator);
+          d.interaction(true);
+          atorAnterior = ator;
+    }
+  }
+
+  for(var i = 0; i < conjuntoBanco.length; i++){
+    // j percorre o array de associacoes caso houver
+    for(var j = 0; j < conjuntoBanco[i].associacoes.length; j++){
+      // z percorre as associacoes
+      for(var z = 0; z < contaElementos; z++){
+        if(listaCasos[z] != undefined){
+          if(listaCasos[z].key == conjuntoBanco[i].associacoes[j].destino) {
+            criar_associacao(i, j, z, listaCasos);
+          }
+        }
+        if(listaAtores[z] != undefined){
+          if(listaAtores[z].key == conjuntoBanco[i].associacoes[j].destino){
+            criar_associacao(i, j, z, listaAtores);
+          }
+        }
+      }
+    }
+  }
+
+  function criar_associacao(i, j, z, listaElementos){
+    //Criar a ligação conforme o tipo
+    switch (conjuntoBanco[i].associacoes[j].tipoAss) {
+     //Ligação de Comunicação
+    case 'UMLCommunication':
+      var ligacao = UMLCommunication({a: encontrar_elemento(conjuntoBanco[i].id, conjuntoBanco[i].tipoElemento), b: listaElementos[z].value});
+      d.addElement(ligacao);
+      d.interaction(true);
+      break;
+
+      //Ligação de Extensão
+    case 'UMLExtend':
+      var ligacao = new UMLExtend({a: listaElementos[z].value, b: encontrar_elemento(conjuntoBanco[i].id, conjuntoBanco[i].tipoElemento) });
+      d.addElement(ligacao);
+      d.interaction(true);
+      break;
+
+      //Ligação de Inclusão
+    case 'UMLInclude':
+      var ligacao = new UMLInclude({a: encontrar_elemento(conjuntoBanco[i].id, conjuntoBanco[i].tipoElemento), b: listaElementos[z].value});
+      d.addElement(ligacao);
+      d.interaction(true);
+      break;
+
+      //Ligação de Generalização
+    case 'UMLGeneralization':
+      var ligacao = new UMLGeneralization({a: encontrar_elemento(conjuntoBanco[i].id, conjuntoBanco[i].tipoElemento), b: listaElementos[z].value});
+      ligacao.setName("Teste");
+      d.addElement(ligacao);
+      d.interaction(true);
+      break;
+    }
+  }
+
+  //Atualiza dinamicamente a altura do canvas
+  d.setUpdateHeightCanvas(true);
+
+  //Função para renomear o diagrama
+  d.setName("<%= @diagrama.nome %>");
+
+  //Função para desenhar o diagrama
+  d.draw();
+
+  function encontrar_elemento(id, tipo){
+    if(tipo == 0){
+      for(var i = 0; i < listaCasos.length; i++){
+        if (listaCasos[i].key == id) {
+          return listaCasos[i].value;
+        }
+      }
+    }
+    if (tipo == 1) {
+      for(var i = 0; i < listaAtores.length; i++){
+        if (listaAtores[i].key == id) {
+          return listaAtores[i].value;
+        }
+      }
+    }
+  }
+</script>
+
 <!-- script para exportações -->
 <script>
   $('#btnPNG').on('click', function(){
