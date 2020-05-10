@@ -78,7 +78,7 @@ class StateMachineDiagram::DiagramasController < ApplicationController
 
     def diagrama_params
       @params_for_reload = {}
-      params.require(:mqdiag).permit(:nome, :mqelem_inicial_id, :mqelem_final_id, mqtran_attributes: [:id, :mqelem_origem_id, :mqelem_destino_id, :descricao, :_destroy])
+      params.require(:mqdiag).permit(:nome, :mqelem_inicial_id, :mqelem_final_id, mqtran_attributes: [:id, :mqelem_origem_id, :mqelem_destino_id, :descricao, :estereotipo, :_destroy])
     end
 
     def params_for_mqtran

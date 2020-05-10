@@ -70,6 +70,6 @@ class StateMachineDiagram::ElementosController < ApplicationController
 
     def elemento_params
       @params_for_reload = {}
-      params.require(:mqelem).permit(:mqdiag_id, :descricao, :tipo_elemento)
+      params.require(:mqelem).permit(:mqdiag_id, :descricao, :estereotipo)
     end
 end

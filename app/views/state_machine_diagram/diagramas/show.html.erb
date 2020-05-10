@@ -21,6 +21,193 @@
 <br>
 <div id="fundo" style="margin-bottom: 25px;" alt="Diagrama de Classes Gerado"></div>
 
+
+<script>
+// Seta variaveis com o tamanho padrão
+var width = 1300;
+var height = 350;
+
+// Cria a div do "fundo" com o tamanho padrão
+var div = document.getElementById('fundo');
+div.setAttribute('class', 'ud_diagram_div');
+div.style.width = width + 'px';
+div.style.height = height + 'px';
+
+//Cria o canvas com o tamanho padrão
+var canvas = document.createElement('canvas');
+canvas.setAttribute('class', 'ud_diagram_canvas');
+canvas.width = width;
+canvas.height = height;
+var mainContext = canvas.getContext('2d');
+div.appendChild(canvas);
+
+//Joga o canvas como um elemento e seta tamanho
+canvas = document.createElement('canvas');
+canvas.setAttribute('class', 'ud_diagram_canvas');
+canvas.width = this.width;
+canvas.height = this.height;
+canvas.onmousedown = function(){ return false; }
+var motionContext = canvas.getContext('2d');
+
+// Seta a variavel d como o diagrama total e inicia com os valores padrão
+var d = new UMLStateMachineDiagram({id:'fundo', width: width, height: height});
+d.initialize(0, div, mainContext, motionContext, width, height);
+
+// Define as posições
+var inicioX = 30; // Horizontal CONSTANTES
+var inicioY = 40; // Vertical CONSTANTES
+var novoX = 130;
+var novoY = 40;
+var distanciaLateral= 120; // Define o espaçamento entre os estados
+var distanciaVertical= 150;
+var anterior = new UMLSimpleState(); //Define o obj anterior a ser referencia
+var tamanhoLinha = 0;
+var limiteLinha = width;
+var maiorAltura = 0;
+var contadorLinha = 1;
+var listaEstados = [];
+
+//ISSO QUE DEVERA SER PASSADO DO BANCO ---------------------------------------------------------
+
+var conjuntoBanco = [];
+<% @diagrama.mqelem.each do |elem| %>
+  var elemento = new Object();
+  elemento.id = "<%= elem.id %>";
+  elemento.nome = "<%= elem.descricao %>";
+  elemento.tipoElemento = "0";
+  elemento.estereotipo = "<%= elem.estereotipo %>";
+  elemento.associacoes = [];
+  <% @associacoes = @diagrama.mqtran.where(mqelem_origem_id: elem.id) %>
+  <% @associacoes.each do |associacao| %>
+    var associacao = new Object();
+    associacao.origem = "<%= associacao.mqelem_origem_id %>";
+    associacao.destino = "<%= associacao.mqelem_destino_id %>";
+    associacao.nome = "<%= associacao.descricao %>";
+    associacao.tipoAss = "UMLTransition";
+    <% if associacao.estereotipo.blank? %>associacao.estereotipo = "";<% else %>associacao.estereotipo = "<<<%= associacao.estereotipo %>>>";<% end %>
+    elemento.associacoes.push(associacao);
+  <% end %>
+  conjuntoBanco.push(elemento);
+  <% if !@diagrama.mqelem_final_id.blank? && (@diagrama.mqelem_final_id == elem.id) %>
+    var associacao = new Object();
+    associacao.origem = "<%= elem.id %>";
+    associacao.destino = "PONTO_FINAL";
+    associacao.tipoAss = "UMLTransition";
+    elemento.associacoes.push(associacao);
+  <% end %>
+<% end %>
+
+<% if !@diagrama.mqelem_inicial_id.blank? %>
+  var pontoInicial = new Object();
+  pontoInicial.id = "PONTO_INICIAL";
+  pontoInicial.tipoElemento = "1"
+  pontoInicial.associacoes = [];
+  var associacao = new Object();
+  associacao.origem = "PONTO_INICIAL";
+  associacao.destino = "<%= @diagrama.mqelem_inicial_id %>";
+  associacao.tipoAss = "UMLTransition";
+  pontoInicial.associacoes.push(associacao);
+  conjuntoBanco.push(pontoInicial);
+<% end %>
+
+<% if !@diagrama.mqelem_final_id.blank? %>
+  var pontoFinal = new Object();
+  pontoFinal.id = "PONTO_FINAL";
+  pontoFinal.tipoElemento = "2"
+  pontoFinal.associacoes = [];
+  conjuntoBanco.push(pontoFinal);
+<% end %>
+//ISSO QUE DEVERA SER PASSADO DO BANCO ---------------------------------------------------------
+
+
+// i percorre o array do banco
+for(var i=0; i < conjuntoBanco.length; i++){
+    // Verifica se existe estado tipo "1" de inicial
+    if(conjuntoBanco[i].tipoElemento == "1"){
+        var estado = new UMLInitialPseudostate({ x: inicioX, y: inicioY+8});
+    }
+
+    if(conjuntoBanco[i].tipoElemento == "0"){
+        // Quando for criar o primeira estado (Sem ser inicial) passa direto
+        if(i!=0){
+          novoX = anterior.getX() + anterior.getWidth() + distanciaLateral; //Calcula a posição horizontal
+          novoY = anterior.getY(); //Calcula a posição vertical sem quebra
+          if(i%2 != 0){ //Ele vai aumentando para não ficar alinhado e sumir associacao
+              novoY += 25;
+            }
+        }
+
+        var estado = new UMLSimpleState({ x: novoX, y: novoY});
+        estado.setId(conjuntoBanco[i].id);
+        estado.setName(conjuntoBanco[i].nome);
+        estado.addStereotype(conjuntoBanco[i].estereotipo);
+        tamanhoLinha = novoX + estado.getWidth();
+
+        if(tamanhoLinha > limiteLinha){
+          novoY = maiorAltura + distanciaVertical * contadorLinha; //Calcula a posição vertical com quebra
+          novoX = inicioX;
+          tamanhoLinha = 0;
+          maiorAltura = 0;
+          estado.position(novoX, novoY);
+          contadorLinha++;
+        }
+
+        var alturaEstado = estado.getHeight()
+        if (alturaEstado > maiorAltura) {
+          maiorAltura = alturaEstado;
+        }
+        anterior = estado;
+    }
+
+    if(conjuntoBanco[i].tipoElemento == "2") {
+        novoX = anterior.getX() + anterior.getWidth() + (distanciaLateral / 4); //Calcula a posição horizontal
+        novoY = anterior.getY() + 8; //Calcula a posição vertical sem quebra
+        var estado = new UMLFinalState({ x: novoX, y: novoY});
+    }
+
+    listaEstados.push({key: conjuntoBanco[i].id, value: estado})
+    d.addElement(estado);
+    d.interaction(true);
+}
+
+//Percorre os elementos
+for(var i=0; i < conjuntoBanco.length; i++){
+  // Percorre os elementos que tem associação
+  for(var j = 0; j < conjuntoBanco[i].associacoes.length; j++){
+    // Percorre as associacoes
+    for(var z = 0; z < listaEstados.length; z++){
+      // Compara a chave da associação com o destino
+      if(listaEstados[z] != undefined){
+        if (listaEstados[z].key == conjuntoBanco[i].associacoes[j].destino){
+          //Cria a transição
+          var ligacao = UMLTransition({a: encontrar_estado(conjuntoBanco[i].id), b: listaEstados[z].value});
+          ligacao.setName(conjuntoBanco[i].associacoes[j].nome);
+          ligacao.setStereotype(conjuntoBanco[i].associacoes[j].estereotipo);
+          d.addElement(ligacao);
+        }
+      }
+    }
+  }
+}
+
+//Atualiza dinamicamente a altura do canvas
+d.setUpdateHeightCanvas(true);
+
+//Função para renomear o diagrama
+d.setName("<%= @diagrama.nome %>");
+
+//Função para desenhar o diagrama
+d.draw();
+
+function encontrar_estado(id){
+  for(var i = 0; i < listaEstados.length; i++){
+    if (listaEstados[i].key == id) {
+      return listaEstados[i].value;
+    }
+  }
+}
+</script>
+
 <!-- script para exportações -->
 <script>
   $('#btnPNG').on('click', function(){

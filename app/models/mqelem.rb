@@ -1,11 +1,6 @@
 class MQELEM < ApplicationRecord
   belongs_to :mqdiag
-  enum tipo_elemento: [:State, :Condition]
-  validates :descricao, presence: true, if: :State?
-  validates :tipo_elemento, presence: true
-  def self.tipo_elementos
-    [ ['Estado', 'State'], ['Condição', 'Condition'] ]
-  end
+  validates :descricao, presence: true
   before_destroy :remove_dependencias
   private
   def remove_dependencias

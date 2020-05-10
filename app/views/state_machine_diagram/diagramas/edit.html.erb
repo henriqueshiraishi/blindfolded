@@ -33,7 +33,7 @@
               <thead>
                 <tr>
                   <th>Descrição</th>
-                  <th>Tipo Elemento</th>
+                  <th>Estereótipo</th>
                   <th></th>
                   <th></th>
                 </tr>
@@ -42,7 +42,7 @@
                 <% @elementos.each do |elemento| %>
                   <tr>
                     <td width="42.5%"><%= elemento.descricao %></td>
-                    <td width="42.5%"><%= MQELEM.tipo_elementos.to_h.select{|key, value| value == elemento.tipo_elemento }.keys[0] %></td>
+                    <td width="42.5%"><%= elemento.estereotipo %></td>
                     <td width="7.5%"><%= link_to 'Editar', edit_state_machine_diagram_elementos_path(elemento, mqdiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
                     <td width="7.5%"><%= link_to 'Excluir', state_machine_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-secondary btn-block' %></td>
                   </tr>
@@ -64,6 +64,7 @@
               <th>Elem. Origem</th>
               <th>Elem. Destino</th>
               <th>Descrição</th>
+              <th>Estereótipo</th>
               <th></th>
             </tr>
           </thead>
@@ -85,13 +86,13 @@
           <div class="col-6">
             <div class="form-group">
               <%= f.label :mqelem_inicial_id, 'Elemento Inicial' %>
-              <%= f.select :mqelem_inicial_id, MQELEM.where(mqdiag_id: params[:id], tipo_elemento: 0).pluck(:descricao, :id), {include_blank: true}, {class: 'form-control'} %>
+              <%= f.select :mqelem_inicial_id, MQELEM.where(mqdiag_id: params[:id]).pluck(:descricao, :id), {include_blank: true}, {class: 'form-control'} %>
             </div>
           </div>
           <div class="col-6">
             <div class="form-group" style="margin-right: 17.5px">
               <%= f.label :mqelem_final_id, 'Elemento Final' %>
-              <%= f.select :mqelem_final_id, MQELEM.where(mqdiag_id: params[:id], tipo_elemento: 0).pluck(:descricao, :id), {include_blank: true}, {class: 'form-control'} %>
+              <%= f.select :mqelem_final_id, MQELEM.where(mqdiag_id: params[:id]).pluck(:descricao, :id), {include_blank: true}, {class: 'form-control'} %>
             </div>
           </div>
         </div>

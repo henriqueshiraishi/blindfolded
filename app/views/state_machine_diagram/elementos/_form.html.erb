@@ -10,8 +10,8 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= f.label :tipo_elemento %>
-        <%= f.select :tipo_elemento, MQELEM.tipo_elementos, {include_blank: false}, {class: 'form-control'} %>
+        <%= f.label :estereotipo %>
+        <%= f.text_field :estereotipo, value: val_of(@elemento, :estereotipo), class: 'form-control', autofocus: true %>
       </div>
     </div>
     <div class="col-2">

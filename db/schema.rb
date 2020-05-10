@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200509225532) do
+ActiveRecord::Schema.define(version: 20200510021901) do
 
   create_table "classo", force: :cascade do |t|
     t.integer "cldiag_id"
@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 20200509225532) do
   create_table "mqelem", force: :cascade do |t|
     t.integer "mqdiag_id"
     t.string "descricao"
-    t.integer "tipo_elemento", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "estereotipo"
     t.index ["mqdiag_id"], name: "index_mqelem_on_mqdiag_id"
   end
 
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20200509225532) do
     t.string "descricao"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "estereotipo"
     t.index ["mqdiag_id"], name: "index_mqtran_on_mqdiag_id"
   end
 
