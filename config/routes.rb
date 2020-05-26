@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'dashboard#index'
+  get 'tester_mode', to: 'application#set_tester_mode'
   devise_for :user, controllers: { registrations: 'users/registrations' }
   namespace :class_diagram do
     resources :diagramas

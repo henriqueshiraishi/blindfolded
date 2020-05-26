@@ -34,3 +34,13 @@
   </div>
 <% end %>
 
+
+
+<%= link_to 'Switch Tester Mode', tester_mode_path(tester_mode: !$tester_mode) %><br>
+
+<% if $tester_mode %>
+  <%= link_to 'Redirect to Root Path', root_path %><br>
+<% end %>
+
+Tester Mode Status: <b><%= $tester_mode.to_s.upcase %></b>
+

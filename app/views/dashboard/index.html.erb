@@ -1,1 +1,5 @@
 <h1 class="title"><%= @title %></h1>
+
+<% if $tester_mode %>
+  <%= link_to 'Disable Tester Mode', tester_mode_path(tester_mode: !$tester_mode) %><br>
+<% end %>

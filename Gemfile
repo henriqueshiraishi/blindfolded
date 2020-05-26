@@ -16,6 +16,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.6.2'
 gem 'pg', '~> 1.1.4'
 gem 'cocoon', '~> 1.2.14'
+gem 'wannabe_bool', '~> 0.7.1'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
