@@ -9,17 +9,17 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
       </div>
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= link_to 'Gerar Diagrama', use_case_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+        <%= link_to 'Gerar Diagrama', use_case_diagram_diagramas_path(params[:id]), class:"btn btn-dark btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= use_case_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+        <button type="button" onclick="location.href='<%= use_case_diagram_diagramas_index_path %>';" class="btn btn-dark btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
       </div>
     </div>
   </div>
@@ -45,14 +45,14 @@
                     <td width="35%"><%= elemento.descricao %></td>
                     <td width="25%"><%= elemento.estereotipo %></td>
                     <td width="15%"><%= CSELEM.tipo_elementos.to_h.select{|key, value| value == elemento.tipo_elemento }.keys[0] %></td>
-                    <td width="7.5%"><%= link_to 'Editar', edit_use_case_diagram_elementos_path(elemento, csdiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
-                    <td width="7.5%"><%= link_to 'Excluir', use_case_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-secondary btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Editar', edit_use_case_diagram_elementos_path(elemento, csdiag_id: params[:id]), class: 'btn btn-dark btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Excluir', use_case_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-dark btn-block' %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
-          <button type="button" onclick="location.href='<%= new_use_case_diagram_elementos_path(csdiag_id: params[:id]) %>';" class="btn btn-primary btn-block" accesskey="c">Novo Elemento</button>
+          <button type="button" onclick="location.href='<%= new_use_case_diagram_elementos_path(csdiag_id: params[:id]) %>';" class="btn btn-dark btn-block" accesskey="c">Novo Elemento</button>
       </fieldset>
     </div>
   </div>
@@ -63,10 +63,10 @@
           <table>
           <thead class="<%= 'd-none' if f.object.csasso.empty? %>" id="thead-csasso">
             <tr>
-              <th>Elem. Origem</th>
-              <th>Elem. Destino</th>
-              <th>Associação</th>
-              <th>Esteótipo</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -76,24 +76,24 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :csasso, data: { thead: '#thead-csasso', focus: '.ref-3', association_insertion_node: '.csasso', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
+        <%= link_to_add_association f, :csasso, data: { thead: '#thead-csasso', focus: '.ref-3', association_insertion_node: '.csasso', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
       </fieldset>
     </div>
   </div>
   <div class="row">
     <div class="col-6">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;'>Salvar Diagrama</button>
       </div>
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= link_to 'Gerar Diagrama', use_case_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+        <%= link_to 'Gerar Diagrama', use_case_diagram_diagramas_path(params[:id]), class:"btn btn-dark btn-block", style: 'margin-top: 35px;' %>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= use_case_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+        <button type="button" onclick="location.href='<%= use_case_diagram_diagramas_index_path %>';" class="btn btn-dark btn-block" style="margin-top: 35px;">Voltar</button>
       </div>
     </div>
   </div>

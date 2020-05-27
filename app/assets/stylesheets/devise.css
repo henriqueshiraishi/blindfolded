@@ -1,4 +1,4 @@
-* { font-size: 20px; }
+* { font-size: 20px; font-weight: bold; }
 .title { margin-top: 10px; }
 .form-group label { width: 100%; margin-bottom: 0; padding-bottom: 5px; }
 .notification { margin: 0; padding: 0.75em 0; }

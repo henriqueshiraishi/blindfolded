@@ -16,12 +16,12 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Classe</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Classe</button>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:cldiag_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:cldiag_id]) %>';" class="btn btn-dark btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
         <table>
           <thead class="<%= 'd-none' if f.object.clatri.empty? %>" id="thead-clatri">
             <tr>
-              <th>Descrição</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -45,7 +45,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :clatri, data: { thead: '#thead-clatri', focus: '.ref-0', association_insertion_node: '.clatri', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'a' do %>Novo Atributo<% end %>
+        <%= link_to_add_association f, :clatri, data: { thead: '#thead-clatri', focus: '.ref-0', association_insertion_node: '.clatri', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'a' do %>Novo Atributo<% end %>
       </fieldset>
     </div>
   </div>
@@ -57,7 +57,7 @@
         <table>
           <thead class="<%= 'd-none' if f.object.clmeto.empty? %>" id="thead-clmeto">
             <tr>
-              <th>Descrição</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -67,7 +67,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :clmeto, data: { thead: '#thead-clmeto', focus: '.ref-1', association_insertion_node: '.clmeto', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'm' do %>Novo Método<% end %>
+        <%= link_to_add_association f, :clmeto, data: { thead: '#thead-clmeto', focus: '.ref-1', association_insertion_node: '.clmeto', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'm' do %>Novo Método<% end %>
       </fieldset>
     </div>
   </div>
@@ -77,12 +77,12 @@
   <div class="row">
     <div class="col-8">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Efetivar Classe</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;'>Efetivar Classe</button>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:cldiag_id]) %>';" class="btn btn-primary btn-block" style="margin-top: 35px;" accesskey="v">Voltar</button>
+        <button type="button" onclick="location.href='<%= edit_class_diagram_diagramas_path(params[:cldiag_id]) %>';" class="btn btn-dark btn-block" style="margin-top: 35px;">Voltar</button>
       </div>
     </div>
   </div>

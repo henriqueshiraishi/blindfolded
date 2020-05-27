@@ -9,17 +9,17 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
       </div>
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-dark btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-dark btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
       </div>
     </div>
   </div>
@@ -43,14 +43,14 @@
                   <tr>
                     <td width="42.5%"><%= elemento.descricao %></td>
                     <td width="42.5%"><%= elemento.estereotipo %></td>
-                    <td width="7.5%"><%= link_to 'Editar', edit_state_machine_diagram_elementos_path(elemento, mqdiag_id: params[:id]), class: 'btn btn-secondary btn-block' %></td>
-                    <td width="7.5%"><%= link_to 'Excluir', state_machine_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-secondary btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Editar', edit_state_machine_diagram_elementos_path(elemento, mqdiag_id: params[:id]), class: 'btn btn-dark btn-block' %></td>
+                    <td width="7.5%"><%= link_to 'Excluir', state_machine_diagram_elementos_path(elemento), method: :delete, class: 'btn btn-dark btn-block' %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
           <% end %>
-          <button type="button" onclick="location.href='<%= new_state_machine_diagram_elementos_path(mqdiag_id: params[:id]) %>';" class="btn btn-primary btn-block" accesskey="c">Novo Elemento</button>
+          <button type="button" onclick="location.href='<%= new_state_machine_diagram_elementos_path(mqdiag_id: params[:id]) %>';" class="btn btn-dark btn-block" accesskey="c">Novo Elemento</button>
       </fieldset>
     </div>
   </div>
@@ -61,10 +61,10 @@
           <table>
           <thead class="<%= 'd-none' if f.object.mqtran.empty? %>" id="thead-mqtran">
             <tr>
-              <th>Elem. Origem</th>
-              <th>Elem. Destino</th>
-              <th>Descrição</th>
-              <th>Estereótipo</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -74,7 +74,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :mqtran, data: { thead: '#thead-mqtran', focus: '.ref-3', association_insertion_node: '.mqtran', association_insertion_method: :append }, class:'btn btn-secondary btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
+        <%= link_to_add_association f, :mqtran, data: { thead: '#thead-mqtran', focus: '.ref-3', association_insertion_node: '.mqtran', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
       </fieldset>
     </div>
   </div>
@@ -102,17 +102,17 @@
   <div class="row">
     <div class="col-6">
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;'>Salvar Diagrama</button>
       </div>
     </div>
     <div class="col-2">
       <div class="form-group">
-        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-primary btn-block", style: 'margin-top: 35px;', accesskey: 'g' %>
+        <%= link_to 'Gerar Diagrama', state_machine_diagram_diagramas_path(params[:id]), class:"btn btn-dark btn-block", style: 'margin-top: 35px;' %>
       </div>
     </div>
     <div class="col-1">
       <div class="form-group">
-        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-primary btn-block" style="margin-top: 35px;", accesskey='v'>Voltar</button>
+        <button type="button" onclick="location.href='<%= state_machine_diagram_diagramas_index_path %>';" class="btn btn-dark btn-block" style="margin-top: 35px;">Voltar</button>
       </div>
     </div>
   </div>
