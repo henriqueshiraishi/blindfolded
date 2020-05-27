@@ -36,10 +36,10 @@
 
 
 
-<%= link_to 'Switch Tester Mode', tester_mode_path(tester_mode: !$tester_mode) %><br>
+<%= link_to 'Switch Tester Mode', tester_mode_path(tester_mode: !$tester_mode), style: 'color: #212529' %><br>
 
 <% if $tester_mode %>
-  <%= link_to 'Redirect to Root Path', root_path %><br>
+  <%= link_to 'Redirect to Root Path', root_path, style: 'color: #212529' %><br>
 <% end %>
 
 Tester Mode Status: <b><%= $tester_mode.to_s.upcase %></b>
