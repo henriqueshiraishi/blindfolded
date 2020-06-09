@@ -9,7 +9,7 @@
     </div>
     <div class="col-2">
       <div class="form-group">
-        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;' accesskey="o">Salvar Diagrama</button>
+        <button type="submit" class="btn btn-dark btn-block" style='margin-top: 35px;' accesskey="s">Salvar Diagrama</button>
       </div>
     </div>
     <div class="col-2">
@@ -50,7 +50,7 @@
               </tbody>
             </table>
           <% end %>
-          <button type="button" onclick="location.href='<%= new_state_machine_diagram_elementos_path(mqdiag_id: params[:id]) %>';" class="btn btn-dark btn-block" accesskey="c">Novo Elemento</button>
+          <button type="button" onclick="location.href='<%= new_state_machine_diagram_elementos_path(mqdiag_id: params[:id]) %>';" class="btn btn-dark btn-block" accesskey="u">Novo Elemento</button>
       </fieldset>
     </div>
   </div>
@@ -74,7 +74,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= link_to_add_association f, :mqtran, data: { thead: '#thead-mqtran', focus: '.ref-3', association_insertion_node: '.mqtran', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'r' do %>Nova Associação<% end %>
+        <%= link_to_add_association f, :mqtran, data: { thead: '#thead-mqtran', focus: '.ref-3', association_insertion_node: '.mqtran', association_insertion_method: :append }, class:'btn btn-dark btn-cocoon btn-block', accesskey: 'n' do %>Nova Associação<% end %>
       </fieldset>
     </div>
   </div>
